@@ -1,4 +1,11 @@
 <div class="w-full h-16 bg-custom-primary">
-    <div> PickAProject </div>
+    <div class="flex flex-row w-full">
+        <div class="p-5 font-bold text-xl"> PickAProject </div>
 
+        
+
+        <% if user_signed_in? %>
+            <%= button_to "Salir", destroy_user_session_path, method: :delete %>
+        <% end %>
+    </div>
 </div>
