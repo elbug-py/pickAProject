@@ -9,4 +9,6 @@ class User < ApplicationRecord
     student: 1,
     teacher: 2
   }
+
+  has_many :projects
 end
