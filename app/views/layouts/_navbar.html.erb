@@ -5,6 +5,7 @@
         
 
         <% if user_signed_in? %>
+            <%= link_to "Investigaciones", projects_path %>
             <%= button_to "Salir", destroy_user_session_path, method: :delete %>
         <% end %>
     </div>
