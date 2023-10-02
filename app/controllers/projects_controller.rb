@@ -16,11 +16,18 @@ class ProjectsController < ApplicationController
 
     # POST /projects
     def create
-        @project = Project.new(project_params)
+        if current_user.teacher?
+            @user = current_user
+        end
+        @project = @user.projects.new(project_params)
         if @project.save
-            redirect_to @project
+            redirect_to projects_path
         else
             render 'new'
         end
+    end
+
+    def project_params
+        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id)
     end
 end

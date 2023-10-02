@@ -5,7 +5,37 @@
       <%= form_with model: @project do |f| %>
         <div class="field mb-2">
           <%= f.label :title %><br />
-          <%= f.text_field :title, autofocus: true, autocomplete: "email", class:"rounded" %>
+          <%= f.text_field :title, autofocus: true, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :description %><br />
+          <%= f.text_area :description, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :duration %><br />
+          <%= f.text_field :duration, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :postulations_due_date %><br />
+          <%= f.datetime_field :postulations_due_date, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :is_payed %><br />
+          <%= f.check_box :is_payed, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :amount %><br />
+          <%= f.text_field :amount, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :vacancies %><br />
+          <%= f.number_field :vacancies, class:"rounded" %>
         </div>
 
         <div class="actions">
