@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+Area.create(name:"Obras Civiles")
+Area.create(name:"Eléctrica")
+Area.create(name:"Ciencias de la Computación")
+Area.create(name:"Industrial")
+Area.create(name:"Ambiental")

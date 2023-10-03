@@ -8,6 +8,16 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true, autocomplete: "Name",class: "rounded" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name, autofocus: true, autocomplete: "Last Name",class: "rounded" %>
+        </div>
+
+        <div class="field">
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "rounded" %>
         </div>
@@ -19,7 +29,7 @@
 
         <div class="field">
           <%= f.label :area_id %><br />
-          <%= f.collection_select(:area_id, Area.names.map { |key, value| [key, value.to_i] }, :last, :first, { prompt: true }, { class: "rounded" }) %>
+          <%= f.collection_select(:area_id, Area.all, :id, :name) %>
         </div>
 
 

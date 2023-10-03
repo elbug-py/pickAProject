@@ -15,7 +15,7 @@ class Ability
       can :manage, :all
     
     elsif user.role == "teacher"
-      can [:create,:update,:destroy], Project
+      can :manage, Project
 
       can [:view,:index], Project
 
