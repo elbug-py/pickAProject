@@ -15,11 +15,12 @@ class Ability
       can :manage, :all
     
     elsif user.role == "teacher"
-      can [:create, :update, :destroy], Project
+      can [:create,:update,:destroy], Project
+
 
     elsif user.role == "student"
       can [:create, :destroy], Inscription
-      can 
+      can [:index, :view], Project
     end
     #
     # The first argument to `can` is the action you are giving the user

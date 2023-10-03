@@ -1,12 +1,11 @@
-<div class="w-full h-16 bg-custom-primary">
-    <div class="flex flex-row w-full">
+<div class="w-full h-16 bg-custom-primary flex justify-between items-center px-4">
+    <div class="mr-auto">
         <%= link_to "PickAProject", root_path, class: "p-5 font-bold text-xl" %>
-
-        
-
+    </div>
+    <div class="space-x-2 flex flex-row">
         <% if user_signed_in? %>
-            <%= link_to "Investigaciones", projects_path %>
-            <%= button_to "Salir", destroy_user_session_path, method: :delete %>
+            <%= link_to "Investigaciones", projects_path, class: "px-4 py-2 rounded-lg text-white hover:text-slate-500" %>
+            <%= button_to "Salir", destroy_user_session_path, method: :delete, class: "px-4 py-2 rounded bg-red-500 text-white" %>
         <% end %>
     </div>
 </div>
