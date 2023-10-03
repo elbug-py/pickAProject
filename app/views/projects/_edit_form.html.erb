@@ -1,0 +1,47 @@
+
+<div class="flex flex-col">
+      <h2 class="text-3xl font-bold mt-10"> Crear un proyecto </h2>
+
+      <%= form_for @project, url: project_path(@project), method: :patch do |f| %>
+        <div class="field mb-2">
+          <%= f.label :title %><br />
+          <%= f.text_field :title, autofocus: true, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :description %><br />
+          <%= f.text_area :description, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :duration %><br />
+          <%= f.text_field :duration, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :postulations_due_date %><br />
+          <%= f.datetime_field :postulations_due_date, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :is_payed %><br />
+          <%= f.check_box :is_payed, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :amount %><br />
+          <%= f.text_field :amount, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
+          <%= f.label :vacancies %><br />
+          <%= f.number_field :vacancies, class:"rounded" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Publicar", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-1" %>
+          <%= link_to "Volver", project_path(@project)%>
+        </div>
+      <% end %>
+
+</div>

@@ -7,7 +7,10 @@
 
 <% @projects.each do |project| %>
    <div> <%= project.title %> </div>
-   <% if can? :destroy, Project %>
+    <% if can? :destroy, Project %>
         <%= button_to "Eliminar", project_path(project), method: :delete %>
-   <% end %>
+    <% end %>
+    <% if can? :update, Project %>
+        <%= button_to "Editar", edit_project_path(project), method: :get %>
+    <% end %>
 <% end %>
