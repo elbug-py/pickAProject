@@ -13,11 +13,17 @@
 #  role                   :integer          default("student"), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  area_id                :bigint           not null
 #
 # Indexes
 #
+#  index_users_on_area_id               (area_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (area_id => areas.id)
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -33,6 +39,7 @@ class User < ApplicationRecord
 
   has_many :projects
   has_many :inscriptions
+  belongs_to :area
 
   validates_length_of :password, minimum: 8, allow_blank: true
 end

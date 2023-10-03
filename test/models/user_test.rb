@@ -13,11 +13,17 @@
 #  role                   :integer          default("student"), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  area_id                :bigint           not null
 #
 # Indexes
 #
+#  index_users_on_area_id               (area_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (area_id => areas.id)
 #
 require "test_helper"
 

@@ -19,6 +19,7 @@ class Ability
 
     elsif user.role == "student"
       can [:create, :destroy], Inscription
+      can 
     end
     #
     # The first argument to `can` is the action you are giving the user

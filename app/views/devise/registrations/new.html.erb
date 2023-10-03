@@ -13,16 +13,21 @@
         </div>
 
         <div class="field">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password",class: "rounded" %>
+          <%= f.label :role %><br />
+          <%= f.collection_select(:role, User.roles.except("admin").keys, :to_s, :humanize, prompt: true, class:"rounded")%>
         </div>
 
         <div class="field">
-          <%= f.label :role %><br />
-          <%= f.collection_select(:role, User.roles.except("admin").keys, :to_s, :humanize, prompt: true, class:"rounded")%>
+          <%= f.label :area_id %><br />
+          <%= f.collection_select(:area_id, Area.names.map { |key, value| [key, value.to_i] }, :last, :first, { prompt: true }, { class: "rounded" }) %>
+        </div>
+
+
+        <div class="field">
+          <%= f.label :password %>
+          <em>(8 characters minimum)</em>
+          <br />
+          <%= f.password_field :password, autocomplete: "new-password",class: "rounded" %>
         </div>
 
         <div class="field">

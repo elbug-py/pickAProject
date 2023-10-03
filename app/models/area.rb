@@ -15,4 +15,6 @@ class Area < ApplicationRecord
         "Industrial": 3,
         "Ambiental": 4
     }
+
+    has_many :users
 end
