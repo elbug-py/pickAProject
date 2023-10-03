@@ -27,6 +27,12 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def destroy
+        @project = Project.find(params[:id])
+        @project.destroy
+        redirect_to projects_path
+    end
+
     def project_params
         params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id)
     end
