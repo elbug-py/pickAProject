@@ -1,16 +1,24 @@
-<h1> Projects </h1>
+<div class="ml-4 mt-4">
+    <h1> Projects </h1>
 
-<% if can? :create, Project %>
-    <%= button_to "Crear Proyecto", new_project_path, method: :get %>
-<% end %>
-
-
-<% @projects.each do |project| %>
-   <div> <%= project.title %> </div>
-    <% if can? :destroy, Project %>
-        <%= button_to "Eliminar", project_path(project), method: :delete %>
+    <% if can? :create, Project %>
+        <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
     <% end %>
-    <% if can? :update, Project %>
-        <%= button_to "Editar", edit_project_path(project), method: :get %>
+
+
+    <% @projects.each do |project| %>
+        <div class="border p-2">
+            <div> <%= project.title %> </div>
+            <% if can? :destroy, Project %>
+                <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-500 rounded p-1.5 text-white" %>
+            <% end %>
+            <% if can? :update, Project %>
+                <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
+            <% end %>
+            <% if can? :view, Project %>
+                <%= button_to "Ver", project_path(project), method: :get, class: "bg-slate-100 rounded p-1.5 text-slate-400"%>
+            <% end %>
+        <div>
     <% end %>
-<% end %>
+
+</div>
