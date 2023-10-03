@@ -32,7 +32,7 @@ class User < ApplicationRecord
   }
 
   has_many :projects
-  has_many :enrollments
+  has_many :inscriptions
 
   validates_length_of :password, minimum: 8, allow_blank: true
 end
