@@ -17,6 +17,8 @@ class Ability
     elsif user.role == "teacher"
       can [:create,:update,:destroy], Project
 
+      can [:view,:index], Project
+
 
     elsif user.role == "student"
       can [:create, :destroy], Inscription

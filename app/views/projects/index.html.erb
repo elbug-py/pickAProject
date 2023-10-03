@@ -3,3 +3,8 @@
 <% if can? :create, Project %>
     <%= button_to "Crear Proyecto", new_project_path, method: :get %>
 <% end %>
+
+
+<% @projects.each do |project| %>
+   <div> <%= project.title %> </div>
+<% end %>
