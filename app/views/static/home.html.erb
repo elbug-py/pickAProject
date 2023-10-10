@@ -1,3 +1,7 @@
 <h1 class="text-3xl font-bold underline flex justify-center">
-    Hello <%=current_user.name%>!
+  Hello <%= current_user.name %> <%= current_user.last_name %>!
 </h1>
+
+<p class="flex justify-center" style="margin-top: 50px;">
+  <%= link_to 'View All Teachers', teachers_path, style: 'background-color: beige; color: black; padding: 10px 20px; border-radius: 50px; border: 2px solid black;' %>
+</p>
