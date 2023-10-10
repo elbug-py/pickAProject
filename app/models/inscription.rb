@@ -25,4 +25,5 @@ class Inscription < ApplicationRecord
         "approved": 1,
         "rejected": 2
     }
+    belongs_to :user
 end
