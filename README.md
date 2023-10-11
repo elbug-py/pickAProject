@@ -22,3 +22,22 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Basic Student
+```
+name:"Estudiante"; 
+last_name:" de prueba";
+email:"tester@miuandes.cl";
+role:"student";
+password:"password";
+area: "Ciencias de la Computación"
+```
+# Admin
+```
+name:"EL ";
+last_name:"Administrador";
+email:"admin@miuandes.cl";
+role:"admin";
+password:"adminpass";
+area:"Ciencias de la Computación"
+```
