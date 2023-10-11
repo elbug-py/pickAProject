@@ -5,6 +5,9 @@ class StaticController < ApplicationController
     def profile
         @user = current_user
         @area = current_user.area
-        @projects = user.projects
+
+        if  @user.role == "teacher"
+            @projects = @user.projects.first
+        end
     end
 end

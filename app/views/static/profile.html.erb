@@ -1,12 +1,13 @@
 <!-- app/views/users/show.html.erb -->
 
-<div class="flex h-screen justify-center items-center">
+<div class="flex h-screen justify-center">
   <div class="p-4 max-w-xl">
+    <br>
     <h2 class="text-2xl font-semibold mb-4 text-center">Perfil de Usuario</h2>
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-        <p><%= @user.name %></p>
+        <p><%= @user.name%></p>
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico:</label>
@@ -16,22 +17,23 @@
         <label class="block text-gray-700 text-sm font-bold mb-2">Area:</label>
         <p><%= @area.name %></p>
       </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Rol:</label>
+        <%if (@user.role == "teacher")%>
+            <p>Profesor</p>
+        <%elsif (@user.role == "student")%>
+            <p>Estudiante</p>
+        <%end%>
+      </div>
+      <div class="mb-4">
+        <%if @user.role == "teacher"%>
+            <label class="block text-gray-700 text-sm font-bold mb-2">Proyectos:</label>
+            <p><%= @projects.title %></p>
+        <%else%>
+            <p>Ir a proyectos inscritos</p>
+        <%end%>
+      </div>
       <!-- Agrega más campos según tus necesidades -->
     </div>
-  </div>
-</div>
-
-<div class="p-4 max-w-xl mx-auto">
-  <h2 class="text-2xl font-semibold mb-4 mx-auto text-center">Perfil de Usuario</h2>
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-      <p><%= @user.name %></p>
-    </div>
-    <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico:</label>
-      <p><%= @area %></p>
-    </div>
-    <!-- Agrega más campos según tus necesidades -->
   </div>
 </div>
