@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :projects
 
   get 'profile', to: 'static#profile'
+
+  get 'postulations', to: 'static#postulated_projects'
 end

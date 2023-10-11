@@ -26,4 +26,5 @@ class Inscription < ApplicationRecord
         "rejected": 2
     }
     belongs_to :user
+    belongs_to :project
 end
