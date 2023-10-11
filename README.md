@@ -1,24 +1,12 @@
-# README
+# Instalacion
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. bundle install
+2. rails tailwindcss:build
+3. rails assets:precompile
 
-Things you may want to cover:
+Si la base de datos no existe
 
-* Ruby version
+1. rails db:create
+2. rails db:migrate
+3. rails db:seed
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
