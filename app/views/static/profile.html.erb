@@ -1,0 +1,37 @@
+<!-- app/views/users/show.html.erb -->
+
+<div class="flex h-screen justify-center items-center">
+  <div class="p-4 max-w-xl">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Perfil de Usuario</h2>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+        <p><%= @user.name %></p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico:</label>
+        <p><%= @user.email %></p>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Area:</label>
+        <p><%= @area.name %></p>
+      </div>
+      <!-- Agrega más campos según tus necesidades -->
+    </div>
+  </div>
+</div>
+
+<div class="p-4 max-w-xl mx-auto">
+  <h2 class="text-2xl font-semibold mb-4 mx-auto text-center">Perfil de Usuario</h2>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+      <p><%= @user.name %></p>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico:</label>
+      <p><%= @area %></p>
+    </div>
+    <!-- Agrega más campos según tus necesidades -->
+  </div>
+</div>

@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :projects
+
+  get 'profile', to: 'static#profile'
 end
