@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get '/teachers', to: 'static#teachers'
+
   resources :projects do
     resources :inscriptions
   end
