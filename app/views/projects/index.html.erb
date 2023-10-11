@@ -1,3 +1,18 @@
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+        width: 50%;
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Adjust the value to control the roundness of the border */
+        padding: 16px;
+        margin-bottom: 20px;
+        background-color: #fff;
+	}
+ </style>
+
+
+
+
 <div class="ml-4 mt-4">
     <h1> Projects </h1>
 
@@ -6,19 +21,47 @@
     <% end %>
 
 
-    <% @projects.each do |project| %>
-        <div class="border p-2">
-            <div> <%= project.title %> </div>
-            <% if can? :destroy, Project %>
-                <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-500 rounded p-1.5 text-white" %>
-            <% end %>
-            <% if can? :update, Project %>
-                <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
-            <% end %>
-            <% if can? :view, Project %>
-                <%= button_to "Ver", project_path(project), method: :get, class: "bg-slate-100 rounded p-1.5 text-slate-400"%>
-            <% end %>
-        <div>
+    <% if @projects.nil?%>
+        <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+            <span style="font-size: 48px; margin-right: 10px;">🔍</span>
+            <span>No project has been created yet, why didn't you create one?</span>
+        </div>
+    <% else %>
+        <% @projects.each do |project| %>
+
+
+            <div class="card">    
+            
+                    <div> <h1 style="font-size: 28px;"> <%= project.title %>  </h1> </div>
+
+                    <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
+                    <br>
+
+                    <div> Duration: <%= project.duration %> </div>
+
+                    <% if project.is_payed %>
+                        <div> Payment: <%= project.amount %> </div>
+                    <% else %>
+                        <div> Payment: without payment </div>
+                    <% end %>
+
+                    <div style="display: flex; gap: 10px;">
+                    <% if can? :view, Project %>
+                        <%= button_to "Ver", project_path(project), method: :get, class: "bg-slate-100 rounded p-1.5 text-slate-400"%>
+                    <% end %>
+                    
+                    <% if can? :update, Project %>
+                        <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
+                    <% end %>
+
+                    <% if can? :destroy, Project %>
+                        <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-500 rounded p-1.5 text-white" %>
+                    <% end %>
+                    
+                    </div>
+            </div>
+
+        <% end %>
     <% end %>
 
 </div>
