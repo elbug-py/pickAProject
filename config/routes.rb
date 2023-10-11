@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get 'profile', to: 'static#profile'
 
   get 'postulations', to: 'static#postulated_projects'
+
+  get 'search_projects', to: "projects#search_projects"
 end

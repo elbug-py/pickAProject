@@ -47,6 +47,14 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def search_projects
+        @projects = Project.all
+        respond_to do |format|
+          format.html {render :search}
+          format.json { render json: @projects}
+        end
+    end
+
     def project_params
         params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id)
     end
