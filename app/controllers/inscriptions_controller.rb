@@ -40,6 +40,33 @@ class InscriptionsController < ApplicationController
     end
 
 
+    def accept
+        @inscription = Inscription.find(params[:id])
+        @project = Project.find(@inscription.project_id)
+        if current_user.teacher? && @inscription.status != "approved"
+          @inscription.update(status: 1)
+          @project.update(vacancies: @project.vacancies - 1)
+          redirect_to projects_path, notice: 'Inscription accepted.'
+        else
+          redirect_to projects_path, alert: 'You do not have permission to accept inscriptions.'
+        end
+      end
+      
+      def reject
+        @inscription = Inscription.find(params[:id])
+        @project = Project.find(@inscription.project_id)
+        if current_user.teacher? && @inscription.status != "rejected"
+          @inscription.update(status: 2)
+            @project.update(vacancies: @project.vacancies + 1)
+          redirect_to projects_path, notice: 'Inscription rejected.'
+        else
+          redirect_to projects_path, alert: 'You do not have permission to reject inscriptions.'
+        end
+      end
+      
+      
+
+
   private
 
   def inscription_params

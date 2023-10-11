@@ -12,5 +12,10 @@ Rails.application.routes.draw do
     resources :inscriptions
   end
 
-  resources :inscriptions
+  resources :inscriptions do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
 end
