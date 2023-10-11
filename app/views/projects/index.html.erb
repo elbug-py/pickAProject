@@ -18,6 +18,9 @@
             <% if can? :view, Project %>
                 <%= button_to "Ver", project_path(project), method: :get, class: "bg-slate-100 rounded p-1.5 text-slate-400"%>
             <% end %>
+            <% if can? :create, Inscription %>
+                <%= button_to "Inscribirse", project_inscriptions_path(project_id: project.id), method: :post, class: "bg-green-300 rounded p-1.5 text-white" %>
+            <% end %>
         <div>
     <% end %>
 

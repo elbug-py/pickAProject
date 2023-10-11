@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   get '/teachers', to: 'static#teachers'
 
-  resources :projects
-  
+  resources :projects do
+    resources :inscriptions
+  end
+
+  resources :inscriptions do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
 end
