@@ -1,0 +1,15 @@
+<div class="flex flex-col ml-4">
+  <h2 class="text-3xl font-bold mt-10">Postulación a <%= inscription.project.title %></h2>
+  <div>User: <%= inscription.user.name %> <%= inscription.user.last_name %></div>
+  <div>Email: <%= inscription.user.email %></div>
+  <div>Area: <%= inscription.user.area.name %></div>
+  <div>Status: <%= inscription.status %></div>
+
+  <%= form_with model: inscription, url: accept_inscription_path(inscription), method: :patch do |f| %>
+    <%= f.submit "Aceptar", class: "bg-green-300 rounded p-1.5 text-white" %>
+  <% end %>
+
+  <%= form_with model: inscription, url: reject_inscription_path(inscription), method: :patch do |f| %>
+    <%= f.submit "Rechazar", class: "bg-blue-300 rounded p-1.5 text-white" %>
+  <% end %>
+</div>

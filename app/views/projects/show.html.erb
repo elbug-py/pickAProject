@@ -7,3 +7,8 @@
 
     <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
 </div>
+
+<h1>aaaaaaaaaaaaaa</h1>
+<% @project.inscriptions.each do |inscription| %>
+  <%= render partial: 'inscription', locals: { inscription: inscription } %>
+<% end %>

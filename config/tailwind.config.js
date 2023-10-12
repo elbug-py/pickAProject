@@ -13,7 +13,8 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'custom-primary': '#F7AF3C'
+        'custom-primary': '#F7AF3C',
+        'beige': '#F5F5DC'
       }
     },
   },
