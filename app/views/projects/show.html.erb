@@ -1,9 +1,58 @@
 <div class="mb-4">
-    <div> Título: <%= @project.title %> </div>
-    <div> Descripción: <%= @project.description %> </div>
-    <div> Duración: <%= @project.duration %> </div>
-    <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div>
-    <div> Vacantes: <%= @project.vacancies %> </div>
+  <div> Título: <%= @project.title %> </div>
+  <div> Descripción: <%= @project.description %> </div>
+  <div> Duración: <%= @project.duration %> </div>
+  <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div>
+  <div> Vacantes: <%= @project.vacancies %> </div>
 
-    <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
+  <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
+
+  <h3>Postulantes:</h3>
+  
+  <!-- Dropdown para filtrar por área -->
+  <select id="filterDropdown">
+    <option value="all">Mostrar todos</option>
+    <% @areas.each do |area| %>
+      <option value="<%= area.id %>"><%= area.name %></option>
+    <% end %>
+  </select>
+
+  <ol id="filteredResults">
+    <% @project.inscriptions.each_with_index do |inscription, index| %>
+      <li>
+        <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
+        <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
+      </li>
+    <% end %>
+  </ol>
 </div>
+
+<script>
+  // Obtener elementos HTML
+  const filterDropdown = document.getElementById('filterDropdown');
+  const filteredResults = document.getElementById('filteredResults');
+
+  // Agregar un evento de cambio al dropdown
+  filterDropdown.addEventListener('change', () => {
+    const selectedAreaId = filterDropdown.value;
+
+    // Filtrar resultados en función del área seleccionada
+    const filteredList = Array.from(filteredResults.getElementsByTagName('li'));
+    
+    if (selectedAreaId === 'all') {
+      // Mostrar todos los resultados si se selecciona "Mostrar todos"
+      filteredList.forEach(item => (item.style.display = ''));
+    } else {
+      // Ocultar los resultados cuyas áreas no coinciden con el área seleccionada
+      filteredList.forEach(item => {
+        const userAreaId = item.querySelector('.area').getAttribute('data-area-id');
+        
+        if (userAreaId !== selectedAreaId) {
+          item.style.display = 'none';
+        } else {
+          item.style.display = '';
+        }
+      });
+    }
+  });
+</script>

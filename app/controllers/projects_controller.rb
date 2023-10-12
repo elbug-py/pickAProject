@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
     # GET /projects/:id
     def show
         @project = Project.find(params[:id])
+        @project_inscriptions = @project.inscriptions
+        @areas = Area.all
     end
 
     # GET /projects/new
