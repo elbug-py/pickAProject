@@ -2,7 +2,12 @@ class ProjectsController < ApplicationController
     
     # GET /projects
     def index
-        @projects = Project.all
+        
+        if current_user.teacher?
+            @projects = Project.where(user_id: @current_user.id)
+        else 
+            @projects = Project.all
+        end
     end
 
     # GET /projects/:id

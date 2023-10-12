@@ -20,6 +20,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Inscription < ApplicationRecord
+
+    belongs_to :project
     enum status: {
         "pending": 0,
         "approved": 1,

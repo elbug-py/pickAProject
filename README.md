@@ -10,3 +10,23 @@ Si la base de datos no existe
 2. rails db:migrate
 3. rails db:seed
 
+
+# Basic Student
+```
+name:"Estudiante"; 
+last_name:" de prueba";
+email:"tester@miuandes.cl";
+role:"student";
+password:"password";
+area: "Ciencias de la Computación"
+```
+# Admin
+```
+name:"EL ";
+last_name:"Administrador";
+email:"admin@miuandes.cl";
+role:"admin";
+password:"adminpass";
+area:"Ciencias de la Computación"
+```
+
