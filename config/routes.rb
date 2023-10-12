@@ -8,6 +8,15 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+
+  
+
+  get 'profile', to: 'static#profile'
+
+  get 'postulations', to: 'static#postulated_projects'
+
+  get 'search_projects', to: "projects#search_projects"
+
   get '/teachers', to: 'static#teachers'
 
   resources :projects do
@@ -20,4 +29,5 @@ Rails.application.routes.draw do
       patch :reject
     end
   end
+
 end

@@ -13,6 +13,8 @@ class ProjectsController < ApplicationController
     # GET /projects/:id
     def show
         @project = Project.find(params[:id])
+        @project_inscriptions = @project.inscriptions
+        @areas = Area.all
     end
 
     # GET /projects/new
@@ -49,6 +51,14 @@ class ProjectsController < ApplicationController
             redirect_to projects_path
         else
             render 'edit'
+        end
+    end
+
+    def search_projects
+        @projects = Project.all
+        respond_to do |format|
+          format.html {render :search}
+          format.json { render json: @projects}
         end
     end
 

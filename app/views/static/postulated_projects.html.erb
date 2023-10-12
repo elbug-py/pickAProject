@@ -1,0 +1,37 @@
+<h1 class="text-3xl font-bold underline flex justify-center mt-4">
+    Proyectos Inscritos
+</h1>
+
+<% @inscriptions.each do |inscription| %>
+    <div class="p-4 max-w-xl border p-2 mt-2">
+        <ul role="list" class="divide-y divide-gray-100">
+            <li class="flex justify-between gap-x-6 py-5">
+                <div class="flex min-w-0 gap-x-4">
+                    <%# Utiliza "inscription" para acceder a la información de inscripción %>
+                    <div class="min-w-0 flex-auto">
+                        
+                        <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+                            <span class="font-bold">Proyecto:</span> <%= inscription.project.title %>
+                        </p>
+                    </div>
+                </div>
+                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                    <p class="text-sm leading-6 text-gray-900">Información de la Inscripción:</p>
+                    <p class="mt-1 text-xs leading-5 text-gray-500">
+                        <% if inscription.status == "pending" %>
+                            <i class="fas fa-clock text-orange-500"></i>
+                        <% elsif inscription.status == "approved" %>
+                            <i class="fas fa-check text-green-500"></i>
+                        <% else %>
+                            <i class="fas fa-times text-red-500"></i>
+                        <% end %>
+                        <%=inscription.status%>
+                        , última modificación: <time datetime="2023-01-23T13:23Z"><%= inscription.updated_at%></time>
+                    </p>
+                    <%= link_to "Ver Proyecto", project_path(inscription.project), class: "bg-blue-500 text-white px-2 py-1 rounded mt-2" %>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+<% end %>

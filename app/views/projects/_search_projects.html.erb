@@ -1,0 +1,210 @@
+<%if current_user.role == "teacher"%>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Buscar Proyectos</title>
+    </head>
+    <body>
+    <div class="container">
+        <br>
+        <h1><span>Buscar Proyectos</span></h1>
+    </div>
+
+    <div class="container cols-6">
+        <input class="form-control mr-sm-2 mt-4" type="search" placeholder="Search" aria-label="Search" id="formulario">
+        <br>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="boton">Search</button>
+    </div>
+
+    <div class="container">
+        <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Profesor</th>
+                        <th scope="col">Descripción</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_tickets_search"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let tickets;
+
+            fetch('/search_projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    tickets = data;
+                    console.log(tickets);
+
+                    const formulario = document.querySelector('#formulario');
+                    const boton = document.querySelector('#boton');
+                    const resultado = document.querySelector('#table_tickets_search');
+
+                    const filtrar = () => {
+                        console.log(formulario.value);
+
+                        resultado.innerHTML = '';
+
+                        const texto = formulario.value.toLowerCase();
+                        let a = 1;
+
+                        for (let ticket of tickets) {
+                            let title = ticket.title.toLowerCase();
+                            let description = ticket.description.toLowerCase();
+
+                            if (title.indexOf(texto) !== -1 || description.indexOf(texto) !== -1) {
+                                resultado.innerHTML += `
+                                    <tr data-id="${ticket.id}">
+                                        <th scope="row">${a}</th>
+                                        <td>${ticket.title}</td>
+                                        <td>${ticket.user_id}</td>
+                                        <td>${ticket.description}</td>
+                                        <td><button onclick="verProyecto(${ticket.id})" class="btn btn-success">Ver</button></td>
+                                    </tr>
+                                `;
+                                a++;
+                            }
+                        }
+
+                        if (resultado.innerHTML === '') {
+                            resultado.innerHTML += `
+                                <tr>
+                                    <th>No encontrado...</th>
+                                </tr>
+                            `;
+                        }
+                    }
+
+                    boton.addEventListener('click', filtrar);
+                });
+        });
+
+        function verProyecto(id) {
+            // Redirige al usuario a la página del proyecto con el ID proporcionado
+            window.location.href = '/projects/' + id;
+        }
+    </script>
+    </body>
+    </html>
+
+<%else%>
+    <div class="container">
+        <br>
+        <h1><span>Buscar Proyectos</span></h1>
+    </div>
+
+    <div class="container cols-6">
+        <input class="form-control mr-sm-2 mt-4" type="search" placeholder="Search" aria-label="Search" id="formulario">
+        <br>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="boton">Search</button>
+    </div>
+
+    <div class="container">
+        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Profesor</th>
+                <th scope="col">Descripción</th>
+                </tr>
+                </thead>
+                <tbody id="table_tickets_search">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        let tickets
+
+        fetch('/search_projects.json')
+            .then(response => response.json())
+            .then(data => tickets = data)
+            .then(() => console.log(tickets));
+
+        const formulario = document.querySelector('#formulario');
+        const boton = document.querySelector('#boton');
+        const resultado = document.querySelector('#table_tickets_search');
+
+        const filtrar = () =>{
+            console.log(formulario.value);
+
+            resultado.innerHTML = '';
+
+            const texto = formulario.value.toLowerCase()
+            let a = 1;
+
+            for(let ticket of tickets){
+                let title = ticket.title.toLowerCase();
+                let description = ticket.description.toLowerCase()
+                // let current_user_id = current_user.id
+                // let email = ticket.user.email.toLowerCase()
+                if(title.indexOf(texto) !== -1){
+                    resultado.innerHTML += `
+                        <tr data-id="${ticket.id}">
+                            <th scope="row">${a}</th>
+                            <td>${ticket.title}</td>
+                            <td>${ticket.user_id}</td>
+                            <td>${ticket.description}</td>
+                            <td><a href="/projects/${ticket.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a></td>
+                        </tr>
+                    `;
+                } else if(description.indexOf(texto) !== -1){
+                    resultado.innerHTML += `
+                        <tr data-id="${ticket.id}">
+                            <th scope="row">${ticket.id}</th>
+                            <td>${ticket.title}</td>
+                            <td>${ticket.user_id}</td>
+                            <td>${ticket.description}</td>
+                            <a href="/projects/${ticket.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a>
+                        </tr>
+                    `;
+                }
+                a++;
+            }
+
+            // Agregar evento de click a cada fila de la tabla
+            resultado.querySelectorAll('tr').forEach(tr => {
+                tr.addEventListener('click', () => {
+                    // Obtener el id del ticket correspondiente
+                    const id = tr.dataset.id;
+                    // Construir la URL del ticket
+                    const url = `/projects/${id}`;
+                    // Redirigir al usuario a la URL del ticket
+                    window.location.href = url;
+                });
+            });
+                    
+            if (resultado.innerHTML === ''){
+                resultado.innerHTML += `
+                <tr>
+                    <th>No encontrado...</th>
+                </tr>
+                `
+            }
+
+            
+        }
+
+        
+
+        boton.addEventListener('click', filtrar);
+
+    </script>
+<%end%>
