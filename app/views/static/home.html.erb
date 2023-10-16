@@ -6,5 +6,30 @@
   <p class="flex justify-center" style="margin-top: 50px;">
     <%= link_to 'View All Teachers', teachers_path, style: 'background-color: beige; color: black; padding: 10px 20px; border-radius: 50px; border: 2px solid black;' %>
   </p>
-  
+  <!-- profe halloween -->
+  <%if current_user.teacher?%>
+  <img style="position: absolute;bottom:0;left: 0;"
+    src="/875-8757585_halloween-pikachu-pikachu-png-halloween.png"
+    alt="Pikachu"
+    width="200"
+    height="200">
+  <!-- estudiante navidad -->
+  <% elsif current_user.student? %>
+  <img 
+    src="/Holoatuendo_Pikachu_Festivo.webp"
+    alt="Pikachu" 
+    width="200" 
+    height="200"
+    style="position: absolute;bottom:0;left: 0;">
+  <%elsif current_user.admin?%>
+  <div class="flex justify-center bottom-0">
+  <img 
+  src="/Le-Dieu-du-Tonerre.png"
+  alt="Pikachu" 
+  width="200" 
+  height="200"
+  style="position: absolute;bottom:0;">
+</div>
+  <% end %>
+
 <%end  %>

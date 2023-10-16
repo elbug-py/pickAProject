@@ -25,6 +25,6 @@
 class Project < ApplicationRecord
     belongs_to :user
 
-    has_many :inscriptions
+    has_many :inscriptions, dependent: :delete_all
     has_many :users, through: :inscriptions
 end
