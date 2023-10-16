@@ -8,6 +8,7 @@
 #  duration              :string
 #  is_payed              :boolean
 #  postulations_due_date :datetime
+#  project_type          :integer          default("titulo"), not null
 #  title                 :string
 #  vacancies             :integer
 #  created_at            :datetime         not null
@@ -27,4 +28,9 @@ class Project < ApplicationRecord
 
     has_many :inscriptions, dependent: :delete_all
     has_many :users, through: :inscriptions
+
+    enum project_type: {
+    magister: 0,
+    titulo: 1,
+  }
 end
