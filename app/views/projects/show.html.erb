@@ -7,31 +7,55 @@
   <div> Vacantes: <%= @project.vacancies %> </div>
 
   <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
-
-  <h3>Postulantes:</h3>
+  <button onclick="verPostulantes()">Ver postulantes</button>
   
-  <!-- Dropdown para filtrar por área -->
-  <select id="filterDropdown">
-    <option value="all">Mostrar todos</option>
-    <% @areas.each do |area| %>
-      <option value="<%= area.id %>"><%= area.name %></option>
-    <% end %>
-  </select>
+<% if can? :manage,Project%>
 
-  <ol id="filteredResults">
-    <% @project.inscriptions.each_with_index do |inscription, index| %>
+<!-- Dropdown para filtrar por área -->
+
+<h3>Postulantes:</h3>
+<!-- <select id="filterDropdown">
+  <option value="all">Mostrar todos</option>
+  <% @areas.each do |area| %>
+  <option value="<%= area.id %>"><%= area.name %></option>
+  <% end %>
+</select> -->
+
+<div id="inscriptions">
+    <!-- <ol id="filteredResults">
+      <% @project.inscriptions.each_with_index do |inscription, index| %>
       <li>
         <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
         <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
       </li>
-    <% end %>
-  </ol>
+      <% end %>
+    </ol> -->
+  <!-- </div> -->
 </div>
 
 <script>
   // Obtener elementos HTML
   const filterDropdown = document.getElementById('filterDropdown');
   const filteredResults = document.getElementById('filteredResults');
+  const project_id = <%=@project.id%>;
+  const parent = document.getElementById('inscriptions');
+
+  function verPostulantes(){
+    fetch(`/projects/${project_id}/inscriptions/`)
+    .then(response=>{
+      if (!response.ok){
+        throw new Error('Hubo un error')
+      }
+      return response.json();
+    })
+    .then(data =>{
+      parent.innerHTML = ""
+      parent.innerHTML = data.html
+    })
+    .catch(error => {
+      console.log('ERROR')
+    })
+  }
 
   // Agregar un evento de cambio al dropdown
   filterDropdown.addEventListener('change', () => {
@@ -67,8 +91,5 @@
 <!--    <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %> -->
 <!--    </div> -->
 
- <!-- <h1>aaaaaaaaaaaaaa</h1> -->
- <!--<% @project.inscriptions.each do |inscription| %> -->
- <!-- <%= render partial: 'inscription', locals: { inscription: inscription } %> -->
- <!--<% end %> -->
 
+<% end %>

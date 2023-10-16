@@ -9,10 +9,22 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <%=render partial: 'layouts/navbar'%>
-  <body>
+  
+  <body style="background-image: url('/background.png');">
+    <% if flash[:notice] %>
+      <div class="alert bg-green-300 flex justify-center text-gray-500 h-1/4 w-screen">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert bg-red-300 flex justify-center text-gray-500 h-1/4 w-screen">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

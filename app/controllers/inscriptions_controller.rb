@@ -1,9 +1,19 @@
 class InscriptionsController < ApplicationController
 
     def index
-        @inscriptions = Inscription.all
+      project_id = params[:project_id]
+      project = Project.find(project_id)
+      @inscriptions = project.inscriptions
+      response = {
+        html: @inscriptions.map do |inscription|
+          render_to_string(partial: 'inscription', locals: { inscription: inscription })
+        end
+      }
+      respond_to do |format|
+        format.json { render json: response }
+      end
     end
-
+  
     def show
         @inscription = Inscription.find(params[:id])
     end
@@ -23,12 +33,20 @@ class InscriptionsController < ApplicationController
             default_status = 0 # Set your desired default status
             
             @inscription = Inscription.new(user_id: @user.id, project_id: project.id, status: default_status)
+            # debugger
+            if Inscription.where(user:@user,project:project).count != 0
+              flash[:alert] = 'No te puedes re-postular'
+              redirect_to projects_path 
+              
 
-            if @inscription.save
-              redirect_to inscriptions_path
-              puts "Inscription createdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
             else
-              render 'new'
+              @inscription.save
+              flash[:notice ] = 'inscrito'
+              redirect_to projects_path 
+              
+              puts "Inscription createdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              # render 
             end
         end
     end
@@ -43,7 +61,7 @@ class InscriptionsController < ApplicationController
     def accept
         @inscription = Inscription.find(params[:id])
         @project = Project.find(@inscription.project_id)
-        if current_user.teacher? && @inscription.status != "approved"
+        if current_user.teacher? or current_user.admin? && @inscription.status != "approved"
           @inscription.update(status: 1)
           @project.update(vacancies: @project.vacancies - 1)
           redirect_to projects_path, notice: 'Inscription accepted.'
@@ -55,7 +73,7 @@ class InscriptionsController < ApplicationController
       def reject
         @inscription = Inscription.find(params[:id])
         @project = Project.find(@inscription.project_id)
-        if current_user.teacher? && @inscription.status != "rejected"
+        if current_user.teacher? or current_user.admin? && @inscription.status != "rejected"
           @inscription.update(status: 2)
             @project.update(vacancies: @project.vacancies + 1)
           redirect_to projects_path, notice: 'Inscription rejected.'

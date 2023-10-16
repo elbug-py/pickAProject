@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
     
     # GET /projects
     def index
-        
         if current_user.teacher?
             @projects = Project.where(user_id: @current_user.id)
         else 
@@ -28,7 +27,7 @@ class ProjectsController < ApplicationController
 
     # POST /projects
     def create
-        if current_user.teacher?
+        if current_user.role=='teacher' or current_user.role =='admin'
             @user = current_user
         end
         @project = @user.projects.new(project_params)
