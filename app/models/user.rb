@@ -7,6 +7,7 @@
 #  encrypted_password     :string           default(""), not null
 #  last_name              :string           default(""), not null
 #  name                   :string           default(""), not null
+#  profile_state          :integer          default("Available")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -35,6 +36,12 @@ class User < ApplicationRecord
     admin: 0,
     student: 1,
     teacher: 2
+  }
+
+  enum profile_state:{
+    Available: 0,
+    Busy: 1,
+    Dont_disturb: 2,
   }
 
   has_many :projects

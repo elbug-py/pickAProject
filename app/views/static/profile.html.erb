@@ -1,17 +1,19 @@
 <!-- app/views/users/show.html.erb -->
-<h1 class="text-3xl font-bold underline flex justify-center mt-4">
-    Perfil
-</h1>
-<br>
-<div class="flex w-1/2">
-  <div class="p-4 max-w-xl border p-2">
+<div class="flex justify-center items-center  h-screen">
+  <div class="p-4 max-w-xl">
     <br>
 
-    <h1 class="text-2xl font-semibold mb-2 text-center">Perfil de Usuario</h1>
+    <h1 class="text-2xl font-semibold mb-2 text-center">Perfil</h1>
+
+    
+
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <div class="mb-4">
+
+      <%= link_to "Editar Perfil", edit_user_registration_path(@user), class: "px-4 py-2 rounded bg-yellow-400 hover:bg-yellow-300 text-white mt-4 mr-4" %>
+    
+      <div class="mb-4 mt-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-        <p><%= @user.name %></p>
+        <p><%= @user.name %> <%= @user.last_name %></p>
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico:</label>
@@ -29,14 +31,25 @@
           <p>Estudiante</p>
         <% end %>
       </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Estado:</label>
+        <%if @user.profile_state=="Dont_disturb" %>
+          <p>Don't disturb</p>
+        <%else %>
+          <p><%= @user.profile_state %></p>
+        <%end %>
+        
+      </div>
+
       <div class="mb-4">
         <% if @user.role == "teacher" %>
           <label class="block text-gray-700 text-sm font-bold mb-2">Proyectos Creados:</label>
           <ul>
             <% @user.projects.each do |project| %>
-              <li class="flex items-center">
+              <li class="flex items-center mt-2">
                 <span class="mr-4">- <%= project.title %></span>
-                <%= button_to "Ver Proyecto", project_path(project), class: "px-4 py-1 rounded bg-green-300 text-white mt-4 mr-4" %>
+                <%= link_to "Ver Proyecto", project_path(project), class: "px-4 py-1 rounded bg-green-500 hover:bg-green-400 text-white" %>
               </li>
             <% end %>
           </ul>
