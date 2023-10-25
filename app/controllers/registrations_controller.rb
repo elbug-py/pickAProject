@@ -2,7 +2,6 @@ class RegistrationsController < Devise::RegistrationsController
 
     
     def update
-
       # Skip the current password requirement
       resource.update_without_password(resource_params)
       if successfully_updated?(resource)
@@ -18,7 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
     private
   
     def resource_params
-      params.require(:user).permit(:email, :name, :last_name, :profile_state)
+      params.require(:user).permit(:email, :name, :last_name, :profile_state, :profile_icon)
     end
   
     def successfully_updated?(resource)

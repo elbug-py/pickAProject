@@ -1,5 +1,5 @@
 <!-- app/views/users/show.html.erb -->
-<div class="flex justify-center items-center  h-screen">
+<div class="flex justify-center items-center">
   <div class="p-4 max-w-xl">
     <br>
 
@@ -8,9 +8,28 @@
     
 
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        
+      
+      <% image_size = 'w-24 h-24' %>
+      <% if @user.profile_icon.attached? %>
+        <div class="profile-image-container flex items-center justify-center mb-4">
+          <div class="border border-black rounded-full p-1">
+            <%= image_tag @user.profile_icon, class: "profile-image rounded-full #{image_size}" %>
+          </div>
+        </div>
+      <% else %>
+        <div class="default-profile-image-container flex items-center justify-center mb-4">
+          <div class="border border-black rounded-full p-1">
+            <%= image_tag '/0fc41afaa7243b43cc64d086b60851db.png', alt: 'Default Profile Image', class: "default-profile-image rounded-full #{image_size}" %>
+          </div>
+        </div>
+      <% end %>
 
-      <%= link_to "Editar Perfil", edit_user_registration_path(@user), class: "px-4 py-2 rounded bg-yellow-400 hover:bg-yellow-300 text-white mt-4 mr-4" %>
-    
+
+      <div class="flex items-center justify-center">
+        <%= link_to "Editar Perfil", edit_user_registration_path(@user), class: "px-4 py-2 rounded bg-yellow-400 hover:bg-yellow-300 text-white" %>
+      </div>
+
       <div class="mb-4 mt-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
         <p><%= @user.name %> <%= @user.last_name %></p>
@@ -54,7 +73,7 @@
             <% end %>
           </ul>
         <% else %>
-          <%= button_to "Ir a proyectos inscritos.", postulations_path, method: :get,  class: "px-4 py-1 rounded bg-green-300 text-white mt-4 mr-4" %>
+          <%= button_to "Ir a proyectos inscritos.", postulations_path, method: :get,  class: "px-4 py-1 rounded bg-green-500 hover:bg-green-400 text-white" %>
         <% end %>
       </div>
 

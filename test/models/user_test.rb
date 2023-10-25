@@ -7,6 +7,7 @@
 #  encrypted_password     :string           default(""), not null
 #  last_name              :string           default(""), not null
 #  name                   :string           default(""), not null
+#  profile_icon           :string
 #  profile_state          :integer          default("Available")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime

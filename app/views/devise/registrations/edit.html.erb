@@ -13,6 +13,11 @@
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field mb-2">
+          <%= f.label :profile_icon %><br />
+          <%= f.file_field :profile_icon, class: "rounded" %>
+        </div>
+        
+        <div class="field mb-2">
           <%= f.label :name %><br />
           <%= f.text_field :name, class: "rounded" %>
         </div>
