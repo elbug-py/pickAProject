@@ -6,6 +6,12 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+
+# ---------------------------------------------------------------------------------------------------------
+Project.destroy_all
+User.destroy_all
+Area.destroy_all
+puts("Clean database")
 # ---------------------------------------------------------------------------------------------------------
 
 oc=Area.create(name:"Obras Civiles")
