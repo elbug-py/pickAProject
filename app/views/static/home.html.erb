@@ -6,6 +6,9 @@
   <p class="flex justify-center" style="margin-top: 50px;">
     <%= link_to 'View All Teachers', teachers_path, style: 'background-color: beige; color: black; padding: 10px 20px; border-radius: 50px; border: 2px solid black;' %>
   </p>
+
+<%end  %>
+
   <!-- profe halloween -->
   <%if current_user.teacher?%>
   <img style="position: absolute;bottom:0;left: 0;"
@@ -31,5 +34,3 @@
   style="position: absolute;bottom:0;">
 </div>
   <% end %>
-
-<%end  %>
