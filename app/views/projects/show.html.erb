@@ -7,31 +7,34 @@
   <div> Vacantes: <%= @project.vacancies %> </div>
 
   <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
+  <%if @project.inscriptions.size != 0%>
   <button onclick="verPostulantes()">Ver postulantes</button>
-  
+  <!-- <select id="filterDropdown">
+    <option value="all">Mostrar todos</option>
+    <% @areas.each do |area| %>
+    <option value="<%= area.id %>"><%= area.name %></option>
+    <% end %>
+  </select> -->
+
+  <div id="inscriptions">
+      <!-- <ol id="filteredResults">
+        <% @project.inscriptions.each_with_index do |inscription, index| %>
+        <li>
+          <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
+          <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
+        </li>
+        <% end %>
+      </ol> -->
+    <!-- </div> -->
+  </div>
+  <% else %>
+    <p>No hay ninguna postulacion aun.</p>
+  <% end %>
 <% if can? :manage,Project%>
 
 <!-- Dropdown para filtrar por área -->
 
-<h3>Postulantes:</h3>
-<!-- <select id="filterDropdown">
-  <option value="all">Mostrar todos</option>
-  <% @areas.each do |area| %>
-  <option value="<%= area.id %>"><%= area.name %></option>
-  <% end %>
-</select> -->
 
-<div id="inscriptions">
-    <!-- <ol id="filteredResults">
-      <% @project.inscriptions.each_with_index do |inscription, index| %>
-      <li>
-        <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
-        <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
-      </li>
-      <% end %>
-    </ol> -->
-  <!-- </div> -->
-</div>
 
 <script>
   // Obtener elementos HTML
@@ -49,11 +52,15 @@
       return response.json();
     })
     .then(data =>{
-      parent.innerHTML = ""
-      parent.innerHTML = data.html
+    
+      var e  = document.createElement("h3")
+      var txt = document.createTextNode("Postulantes:")
+      e.appendChild(txt)
+      parent.innerHTML = e.innerHTML + data.html
+      // parent.insertBefore(e,parent)
     })
     .catch(error => {
-      console.log('ERROR')
+      console.log(error)
     })
   }
 
