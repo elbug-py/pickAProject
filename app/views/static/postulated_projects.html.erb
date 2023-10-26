@@ -28,7 +28,7 @@
       </ul>
       <div class="flex justify-between">
         <% if inscription.status == 'pending' %>
-          <%= button_to "Cancelar Postulación", inscription_path(inscription), method: :delete, class: "bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" %>
+          <%= button_to "Cancelar Postulación", inscription_path(inscription), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" %>
         <% end %>
         <%= link_to "Ver Proyecto", project_path(inscription.project), class:"bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600" %>
       </div>
