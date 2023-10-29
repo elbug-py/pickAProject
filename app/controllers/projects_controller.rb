@@ -61,7 +61,19 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def open
+        @project = Project.find(params[:id])
+        @project.update(status: :open)
+        redirect_to @project
+    end
+
+    def close
+        @project = Project.find(params[:id])
+        @project.update(status: :closed)
+        redirect_to @project
+    end
+
     def project_params
-        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type)
+        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status)
     end
 end

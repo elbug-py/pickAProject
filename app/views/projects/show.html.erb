@@ -5,6 +5,7 @@
   <div> Duración: <%= @project.duration %> </div>
   <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div>
   <div> Vacantes: <%= @project.vacancies %> </div>
+  <div> Estado: <%= @project.status%> </div>
 
   <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
   <%if @project.inscriptions.size != 0%>

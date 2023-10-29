@@ -25,6 +25,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Project < ApplicationRecord
+    validates :status, inclusion: { in: %w(open closed) }
+
     belongs_to :user
 
     has_many :inscriptions, dependent: :delete_all
