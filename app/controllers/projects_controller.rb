@@ -64,13 +64,13 @@ class ProjectsController < ApplicationController
     def open
         @project = Project.find(params[:id])
         @project.update(status: :open)
-        redirect_to @project
+        redirect_to projects_path
     end
 
     def close
         @project = Project.find(params[:id])
         @project.update(status: :closed)
-        redirect_to @project
+        redirect_to projects_path
     end
 
     def project_params

@@ -62,6 +62,11 @@
                     <% end %>
                     
                     <% if can? :update, Project %>
+                        <% if project.status == "open" %>
+                            <%= button_to "Cerrar Proyecto", close_project_path(project), method: :patch, class: "bg-red-500 rounded p-1.5 text-white" %>
+                        <% else %>
+                            <%= button_to "Abrir Proyecto", open_project_path(project), method: :patch, class: "bg-green-300 rounded p-1.5 text-white" %>
+                        <% end %>
                         <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
                     <% end %>
 
