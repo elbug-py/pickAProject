@@ -78,9 +78,14 @@
 
                         if (resultado.innerHTML === '') {
                             resultado.innerHTML += `
-                                <tr>
-                                    <th>No encontrado...</th>
-                                </tr>
+                                <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+                                    <span style="font-size: 48px; margin-right: 10px;">🔍</span>
+                                    <span>No project was found.</span>
+                                    <div class="flex justify-center bottom-0">
+                                        <img src="/pikachu-intro.png" alt="Pikachu " width="130" height="130">
+                                    </div>
+
+                                </div>
                             `;
                         }
                     }
@@ -193,9 +198,14 @@
                     
             if (resultado.innerHTML === ''){
                 resultado.innerHTML += `
-                <tr>
-                    <th>No encontrado...</th>
-                </tr>
+                <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+                    <span style="font-size: 48px; margin-right: 10px;">🔍</span>
+                    <span>No project was found.</span>
+                    <div class="flex justify-center bottom-0">
+                        <img src="/pikachu-intro.png" alt="Pikachu " width="130" height="130">
+                    </div>
+
+                </div>
                 `
             }
 

@@ -48,10 +48,10 @@ puts ("Create the admin")
 proyect=ca.projects.new(title:"Projecto de ejemplo alvarez",description:"Este es un proyecto de ejemplo nomas", duration:"2 meses",is_payed:true,amount:0,vacancies:12, user_id:ca.id)
 proyect.save
 
-proyect1=rd.projects.new(title:"Projecto de ejemplo delpiano ",description:"Este es un proyecto de ejemplo nomas", duration:"1 meses",is_payed:true,amount:2,vacancies:2, user_id:rd.id)
+proyect1=rd.projects.new(title:"Projecto de ejemplo delpiano ",description:"Este es un proyecto de ejemplo nomas", duration:"1 meses",is_payed:true,amount:2,vacancies:2, user_id:rd.id, status: 0)
 proyect1.save
 
-proyect2=po.projects.new(title:"Projecto de ejemplo obras ",description:"Este es un proyecto de ejemplo nomas", duration:"4 meses",is_payed:true,amount:21,vacancies:20, user_id:po.id)
+proyect2=po.projects.new(title:"Projecto de ejemplo obras ",description:"Este es un proyecto de ejemplo nomas", duration:"4 meses",is_payed:true,amount:21,vacancies:20, user_id:po.id, status: 1)
 proyect2.save
 
 proyect3=pe.projects.new(title:"Projecto de ejemplo electro ",description:"Este es un proyecto de ejemplo nomas", duration:"6 meses",is_payed:true,amount:7,vacancies:9, user_id:pe.id)

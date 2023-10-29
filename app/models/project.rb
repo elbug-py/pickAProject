@@ -4,12 +4,13 @@
 #
 #  id                    :bigint           not null, primary key
 #  amount                :string
-#  description           :string
+#  description           :string           not null
 #  duration              :string
 #  is_payed              :boolean
 #  postulations_due_date :datetime
 #  project_type          :integer          default("titulo"), not null
-#  title                 :string
+#  status                :integer          default("open")
+#  title                 :string           not null
 #  vacancies             :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
@@ -32,5 +33,9 @@ class Project < ApplicationRecord
     enum project_type: {
     magister: 0,
     titulo: 1,
-  }
+    }
+    enum status: {
+      closed: 0,
+      open: 1,
+    }
 end
