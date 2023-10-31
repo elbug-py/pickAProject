@@ -49,8 +49,9 @@
                     <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
                     <div> Profesor: <%= project.teacherName %> </div>
-                    <div> Duration: <%= project.duration %> </div>
+                    <div> Duración: <%= project.duration %> </div>
                     <div> Tipo: <%= project.project_type %> </div>
+                    <div> Fecha de inicio: <%= l project.start_date, format: :default%></div>
 
 
                     <% if project.is_payed %>
