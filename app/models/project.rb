@@ -33,4 +33,9 @@ class Project < ApplicationRecord
     magister: 0,
     titulo: 1,
   }
+
+  def teacherName
+    User.find(self.user_id).name + " " + User.find(self.user_id).last_name
+    
+  end
 end
