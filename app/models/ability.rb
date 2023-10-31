@@ -13,11 +13,12 @@ class Ability
 
     if user.role == "admin"
       can :manage, :all
+      cannot [:create, :destroy], Inscription
     
     elsif user.role == "teacher"
       can :manage, Project
-
       can [:view,:index], Project
+      cannot [:create, :destroy], Inscription
 
 
     elsif user.role == "student"
