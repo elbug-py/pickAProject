@@ -6,6 +6,20 @@ class ProjectsController < ApplicationController
             @projects = Project.where(user_id: @current_user.id)
         else 
             @projects = Project.all
+
+            if params[:teacher_name].present?
+                teacher_name = params[:teacher_name].split
+                first_name = teacher_name[0]
+                last_name = teacher_name[1]
+          
+                if first_name.present? && last_name.present?
+                  @teachers = User.where("LOWER(name) LIKE :first_name AND LOWER(last_name) LIKE :last_name", first_name: "%#{first_name.downcase}%", last_name: "%#{last_name.downcase}%")
+                else
+                  @teachers = User.where("LOWER(name) LIKE :search OR LOWER(last_name) LIKE :search", search: "%#{teacher_name.join(' ').downcase}%")
+                end
+          
+                @projects = @projects.where(user_id: @teachers.pluck(:id))
+            end
         end
     end
 
