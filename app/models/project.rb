@@ -26,6 +26,11 @@
 #
 class Project < ApplicationRecord
     validates :status, inclusion: { in: %w(open closed) }
+    include PgSearch::Model
+    
+    pg_search_scope :search_by_title_description_and_teacher, against: [:title, :description], associated_against: {
+      user: [:name, :last_name]
+    }
 
     belongs_to :user
 
