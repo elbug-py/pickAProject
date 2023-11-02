@@ -23,7 +23,14 @@
         <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
     <% end %>
 
+    <div>
+        <%=render "search_projects"%>
+    </div>
 
+    <%= form_tag projects_path, method: :get do %>
+        <%= text_field_tag :teacher_name, params[:teacher_name], placeholder: "Search by Teacher Name" %>
+        <%= submit_tag "Search", class: "bg-blue-300 rounded p-1.5 text-white" %>
+    <% end %>
 
     <% if @projects.nil? || @projects.empty?%>
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
@@ -44,7 +51,7 @@
 
                     <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
-
+                    <div> Profesor: <%= project.teacherName %> </div>
                     <div> Duration: <%= project.duration %> </div>
                     <div> Tipo: <%= project.project_type %> </div>
                     <div> Estado: <%= project.status %></div>

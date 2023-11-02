@@ -40,9 +40,18 @@ class Project < ApplicationRecord
     enum project_type: {
     magister: 0,
     titulo: 1,
+
     }
     enum status: {
       closed: 0,
       open: 1,
     }
+
+  }
+
+  def teacherName
+    User.find(self.user_id).name + " " + User.find(self.user_id).last_name
+    
+  end
+
 end
