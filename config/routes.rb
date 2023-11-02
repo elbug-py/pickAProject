@@ -8,9 +8,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
-
-  
-
   get 'profile', to: 'static#profile'
 
   get 'postulations', to: 'static#postulated_projects'
@@ -21,12 +18,22 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :inscriptions
+    # collection do
+    #   get 'search'
+    # end
   end
 
   resources :inscriptions do
     member do
       patch :accept
       patch :reject
+    end
+  end
+
+  resources :projects do
+    member do
+      patch :open
+      patch :close
     end
   end
 

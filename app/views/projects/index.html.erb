@@ -15,6 +15,9 @@
 
 <div class="ml-4 mt-4">
     <h1> Projects </h1>
+        <div>
+            <%=render "search_projects"%>
+        </div>
 
     <% if can? :create, Project %>
         <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
@@ -51,6 +54,7 @@
                     <div> Profesor: <%= project.teacherName %> </div>
                     <div> Duration: <%= project.duration %> </div>
                     <div> Tipo: <%= project.project_type %> </div>
+                    <div> Estado: <%= project.status %></div>
 
 
                     <% if project.is_payed %>
@@ -65,6 +69,11 @@
                     <% end %>
                     
                     <% if can? :update, Project %>
+                        <% if project.status == "open" %>
+                            <%= button_to "Cerrar Proyecto", close_project_path(project), method: :patch, class: "bg-red-500 rounded p-1.5 text-white" %>
+                        <% else %>
+                            <%= button_to "Abrir Proyecto", open_project_path(project), method: :patch, class: "bg-green-300 rounded p-1.5 text-white" %>
+                        <% end %>
                         <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
                     <% end %>
 
@@ -72,14 +81,15 @@
                         <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-500 rounded p-1.5 text-white" %>
                     <% end %>
 
-                    <% if can? :create, Inscription %>
-                        <%= button_to "Inscribirse", project_inscriptions_path(project_id: project.id), method: :post, class: "bg-green-300 rounded p-1.5 text-white" %>
+                    <% if can? :create, Inscription%>
+                        <% if project.status == "open"%>
+                            <%= button_to "Inscribirse", project_inscriptions_path(project_id: project.id), method: :post, class: "bg-green-300 rounded p-1.5 text-white" %>
+                        <%end%>
                     <% end %>
                     </div>
             </div>
 
         <% end %>
-        
         
 
     <% end %>

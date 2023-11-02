@@ -59,13 +59,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_191821) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
+    t.string "title", null: false
+    t.string "description", null: false
     t.string "duration"
     t.datetime "postulations_due_date"
     t.boolean "is_payed"
     t.string "amount"
     t.integer "vacancies"
+    t.integer "status", default: 1
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

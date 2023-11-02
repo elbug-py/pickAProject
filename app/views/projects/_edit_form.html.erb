@@ -43,6 +43,11 @@
           <%= f.collection_select(:project_type, Project.project_types.keys, :to_s, :humanize, prompt: true, class:"rounded")%>
         </div>
 
+        <div class="field">
+          <%= f.label :status, "Estado del proyecto" %><br />
+          <%= f.select :status, Project.statuses.keys, {}, class: "rounded" %>
+        </div>
+
         <div class="actions">
           <%= f.submit "Publicar", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-1" %>
           <%= link_to "Volver", project_path(@project)%>
