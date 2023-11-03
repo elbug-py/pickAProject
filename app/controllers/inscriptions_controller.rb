@@ -42,9 +42,17 @@ class InscriptionsController < ApplicationController
 
             else
               @inscription.save
+
               flash[:notice ] = 'inscrito'
               redirect_to projects_path 
-              
+              debugger
+              description = "%s %s se a postulado al proyecto %s" % [current_user.name,current_user.last_name,project.title]
+              Notification.create!(
+                title:"Has recibido una nueva postulacion",
+                description:description,
+                user:project.user,
+                project:project
+                )
               puts "Inscription createdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               # render 
             end
@@ -61,9 +69,18 @@ class InscriptionsController < ApplicationController
     def accept
         @inscription = Inscription.find(params[:id])
         @project = Project.find(@inscription.project_id)
+        
         if current_user.teacher? or current_user.admin? && @inscription.status != "approved"
           @inscription.update(status: 1)
           @project.update(vacancies: @project.vacancies - 1)
+          description = "Tu postulacion a %s fue aceptada" % [@project.title]
+          Notification.create!(
+            title:"Postulacion Aceptada",
+            description:description,
+            user:@inscription.user,
+            project:@project,
+            inscription_id:@inscription.id
+            )
           redirect_to projects_path, notice: 'Inscription accepted.'
         else
           redirect_to projects_path, alert: 'You do not have permission to accept inscriptions.'
@@ -75,7 +92,16 @@ class InscriptionsController < ApplicationController
         @project = Project.find(@inscription.project_id)
         if current_user.teacher? or current_user.admin? && @inscription.status != "rejected"
           @inscription.update(status: 2)
-            @project.update(vacancies: @project.vacancies + 1)
+          @project.update(vacancies: @project.vacancies + 1)
+          description = "Tu postulacion a %s fue rechazada" % [@project.title]
+          # debugger
+          Notification.create!(
+            title:"Postulacion Rechazada",
+            description:description,
+            user:@inscription.user,
+            project:@project,
+            inscription_id:@inscription.id
+            )
           redirect_to projects_path, notice: 'Inscription rejected.'
         else
           redirect_to projects_path, alert: 'You do not have permission to reject inscriptions.'

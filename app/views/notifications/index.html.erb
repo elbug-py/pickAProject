@@ -1,0 +1,14 @@
+
+
+<div class="min-h-screen flex justify-center items-center">
+
+<div class="w-11/12 max-w-screen-sm mx-auto flex flex-col gap-6 relative">
+    <!-- Your content here -->
+    <% @notifications.each do |noti| %>
+      <%= render partial: "display",locals:{notification:noti} %>
+    <% end %>
+
+    <!-- Aca va el for -->
+  </div>
+</div>
+  

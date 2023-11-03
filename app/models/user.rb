@@ -48,6 +48,7 @@ class User < ApplicationRecord
   has_many :projects
   has_many :inscriptions
   belongs_to :area
+  has_many :notifications
 
   has_one_attached :profile_icon
 

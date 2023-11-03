@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     #   get 'search'
     # end
   end
-
+  resources :notifications
   resources :inscriptions do
     member do
       patch :accept
