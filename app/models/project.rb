@@ -28,6 +28,8 @@ class Project < ApplicationRecord
 
     has_many :inscriptions, dependent: :delete_all
     has_many :users, through: :inscriptions
+    has_many :notifications
+
 
     enum project_type: {
     magister: 0,

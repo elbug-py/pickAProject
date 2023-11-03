@@ -1,0 +1,28 @@
+
+  
+<a href="<%= project_path(notification.project.id) %>" target="_self">
+  <div class=" p-4 pt-2 pb-8 relative rounded-lg bg-white shadow-lg overflow-hidden hover:opacity-60 cursor-pointer" >
+
+    
+
+    <div class="flex gap-4 items-center relative">
+      
+        <div class="max-w-full h-auto">
+            <% if notification.title.include?("Aceptada")%>
+                <img class="w-16 h-16" src="https://www.pngall.com/wp-content/uploads/2/Approved-PNG-Download-Image.png" alt="approveimg">
+            <% elsif notification.title.include?("Rechazada")%>
+
+                <img class="w-16 h-16" src="https://antiageonline.files.wordpress.com/2019/03/x-30465_960_720.png" alt="negateimg">
+            <% else %>
+                <img class="w-16 h-16" src="https://www.pngall.com/wp-content/uploads/4/Exclamation-Mark-Symbol-PNG.png" alt="negateimg">
+            <% end %>
+          </div>
+          
+            <div class="caption">
+                <h5><%=notification.title%></h5>
+                <p><%=notification.description%></p>
+            </div>
+        </div>
+    </div>
+</a>
+    

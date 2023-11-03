@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_25_191821) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_234255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_191821) do
     t.index ["user_id"], name: "index_inscriptions_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.string "description", default: "", null: false
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "inscription_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inscription_id"], name: "index_notifications_on_inscription_id"
+    t.index ["project_id"], name: "index_notifications_on_project_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -102,6 +115,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_191821) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inscriptions", "projects"
   add_foreign_key "inscriptions", "users"
+  add_foreign_key "notifications", "inscriptions"
+  add_foreign_key "notifications", "projects"
+  add_foreign_key "notifications", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "users", "areas"
 end

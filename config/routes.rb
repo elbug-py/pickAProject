@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :inscriptions
   end
-
+  resources :notifications
   resources :inscriptions do
     member do
       patch :accept

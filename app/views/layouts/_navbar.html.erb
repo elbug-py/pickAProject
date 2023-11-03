@@ -4,6 +4,10 @@
     </div>
     <div class="space-x-2 flex flex-row">
         <% if user_signed_in? %>
+            
+            <%= link_to(notifications_path, class: "px-4 py-2 rounded text-white hover:text-slate-500") do %>
+                <i class="fa-solid fa-bell"></i>
+            <% end %>
             <%= link_to "Perfil", profile_path, class: "px-4 py-2 rounded text-white hover:text-slate-500" %>
 
             <% if current_user.role == "student" %>
