@@ -24,11 +24,11 @@ puts("Create the Areas")
 
 # ---------------------------------------------------------------------------------------------------------
 
-ca=User.create(name:"Claudio", last_name:"Alvarez", email:"calvarez@uandes.cl", role:"teacher",password:"claudioclave", area:cc)
-rd=User.create(name:"Rafael", last_name:"Delpiano", email:"rdelpiano@uandes.cl", role:"teacher",password:"rafaelclave",area:i)
-po=User.create(name:"Profe", last_name:"Obras", email:"profeobras@uandes.cl", role:"teacher",password:"obrasclave",area:oc)
-pe=User.create(name:"Profe", last_name:"Electro", email:"profeelectro@uandes.cl", role:"teacher",password:"electroclave",area:e)
-pa=User.create(name:"Profe", last_name:"Ambiental", email:"profeambiental@uandes.cl", role:"teacher",password:"ambientalclave",area:a)
+ca=User.create(name:"Claudio", last_name:"Alvarez", email:"calvarez@uandes.cl", role:"teacher",password:"12345678", area:cc)
+rd=User.create(name:"Rafael", last_name:"Delpiano", email:"rdelpiano@uandes.cl", role:"teacher",password:"12345678",area:i)
+po=User.create(name:"Profe", last_name:"Obras", email:"profeobras@uandes.cl", role:"teacher",password:"12345678",area:oc)
+pe=User.create(name:"Profe", last_name:"Electro", email:"profeelectro@uandes.cl", role:"teacher",password:"12345678",area:e)
+pa=User.create(name:"Profe", last_name:"Ambiental", email:"profeambiental@uandes.cl", role:"teacher",password:"12345678",area:a)
 
 puts("Create the Teachers")
 
@@ -48,10 +48,10 @@ puts ("Create the admin")
 proyect=ca.projects.new(title:"Projecto de ejemplo alvarez",description:"Este es un proyecto de ejemplo nomas", duration:"2 meses",is_payed:true,amount:0,vacancies:12, user_id:ca.id)
 proyect.save
 
-proyect1=rd.projects.new(title:"Projecto de ejemplo delpiano ",description:"Este es un proyecto de ejemplo nomas", duration:"1 meses",is_payed:true,amount:2,vacancies:2, user_id:rd.id)
+proyect1=rd.projects.new(title:"Projecto de ejemplo delpiano ",description:"Este es un proyecto de ejemplo nomas", duration:"1 meses",is_payed:true,amount:2,vacancies:2, user_id:rd.id, status: 0)
 proyect1.save
 
-proyect2=po.projects.new(title:"Projecto de ejemplo obras ",description:"Este es un proyecto de ejemplo nomas", duration:"4 meses",is_payed:true,amount:21,vacancies:20, user_id:po.id)
+proyect2=po.projects.new(title:"Projecto de ejemplo obras ",description:"Este es un proyecto de ejemplo nomas", duration:"4 meses",is_payed:true,amount:21,vacancies:20, user_id:po.id, status: 1)
 proyect2.save
 
 proyect3=pe.projects.new(title:"Projecto de ejemplo electro ",description:"Este es un proyecto de ejemplo nomas", duration:"6 meses",is_payed:true,amount:7,vacancies:9, user_id:pe.id)

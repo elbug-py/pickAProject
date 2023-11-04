@@ -69,13 +69,37 @@ class ProjectsController < ApplicationController
 
     def search_projects
         @projects = Project.all
-        respond_to do |format|
-          format.html {render :search}
-          format.json { render json: @projects}
+        @projects_with_teacher_info = @projects.map do |project|
+          {
+            id: project.id,
+            title: project.title,
+            description: project.description,
+            teacher: {
+              name: project.user.name,
+              last_name: project.user.last_name
+            }
+          }
         end
+      
+        respond_to do |format|
+          format.html { render :search }
+          format.json { render json: @projects_with_teacher_info }
+        end
+    end
+      
+    def open
+        @project = Project.find(params[:id])
+        @project.update(status: :open)
+        redirect_to projects_path
+    end
+
+    def close
+        @project = Project.find(params[:id])
+        @project.update(status: :closed)
+        redirect_to projects_path
     end
 
     def project_params
-        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type)
+        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status, :search_query)
     end
 end

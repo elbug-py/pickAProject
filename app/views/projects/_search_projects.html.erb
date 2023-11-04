@@ -30,7 +30,7 @@
                         <th scope="col">Descripción</th>
                     </tr>
                     </thead>
-                    <tbody id="table_tickets_search"></tbody>
+                    <tbody id="table_projects_search"></tbody>
                 </table>
             </div>
         </div>
@@ -38,17 +38,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            let tickets;
+            let projects;
 
             fetch('/search_projects.json')
                 .then(response => response.json())
                 .then(data => {
-                    tickets = data;
-                    console.log(tickets);
+                    projects = data;
+                    console.log(projects);
 
                     const formulario = document.querySelector('#formulario');
                     const boton = document.querySelector('#boton');
-                    const resultado = document.querySelector('#table_tickets_search');
+                    const resultado = document.querySelector('#table_projects_search');
 
                     const filtrar = () => {
                         console.log(formulario.value);
@@ -58,18 +58,19 @@
                         const texto = formulario.value.toLowerCase();
                         let a = 1;
 
-                        for (let ticket of tickets) {
-                            let title = ticket.title.toLowerCase();
-                            let description = ticket.description.toLowerCase();
+                        for (let project of projects) {
+                            let title = project.title.toLowerCase();
+                            let description = project.description.toLowerCase();
+                            let profesor_name = (project.teacher.name + project.teacher.last_name).toLowerCase();
 
-                            if (title.indexOf(texto) !== -1 || description.indexOf(texto) !== -1) {
+                            if (title.indexOf(texto) !== -1 || description.indexOf(texto) !== -1 || profesor_name.indexOf(texto) !== -1) {
                                 resultado.innerHTML += `
-                                    <tr data-id="${ticket.id}">
+                                    <tr data-id="${project.id}">
                                         <th scope="row">${a}</th>
-                                        <td>${ticket.title}</td>
-                                        <td>${ticket.user_id}</td>
-                                        <td>${ticket.description}</td>
-                                        <td><button onclick="verProyecto(${ticket.id})" class="btn btn-success">Ver</button></td>
+                                        <td>${project.title}</td>
+                                        <td>${project.teacher.name} ${project.teacher.last_name}</td>
+                                        <td>${project.description}</td>
+                                        <td><button onclick="verProyecto(${project.id})" class="btn btn-success">Ver</button></td>
                                     </tr>
                                 `;
                                 a++;
@@ -78,9 +79,14 @@
 
                         if (resultado.innerHTML === '') {
                             resultado.innerHTML += `
-                                <tr>
-                                    <th>No encontrado...</th>
-                                </tr>
+                                <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+                                    <span style="font-size: 48px; margin-right: 10px;">🔍</span>
+                                    <span>No project was found.</span>
+                                    <div class="flex justify-center bottom-0">
+                                        <img src="/pikachu-intro.png" alt="Pikachu " width="130" height="130">
+                                    </div>
+
+                                </div>
                             `;
                         }
                     }
@@ -90,7 +96,6 @@
         });
 
         function verProyecto(id) {
-            // Redirige al usuario a la página del proyecto con el ID proporcionado
             window.location.href = '/projects/' + id;
         }
     </script>
@@ -120,7 +125,7 @@
                 <th scope="col">Descripción</th>
                 </tr>
                 </thead>
-                <tbody id="table_tickets_search">
+                <tbody id="table_projects_search">
 
                 </tbody>
             </table>
@@ -131,16 +136,16 @@
 
 
     <script>
-        let tickets
+        let projects
 
         fetch('/search_projects.json')
             .then(response => response.json())
-            .then(data => tickets = data)
-            .then(() => console.log(tickets));
+            .then(data => projects = data)
+            .then(() => console.log(projects));
 
         const formulario = document.querySelector('#formulario');
         const boton = document.querySelector('#boton');
-        const resultado = document.querySelector('#table_tickets_search');
+        const resultado = document.querySelector('#table_projects_search');
 
         const filtrar = () =>{
             console.log(formulario.value);
@@ -150,29 +155,39 @@
             const texto = formulario.value.toLowerCase()
             let a = 1;
 
-            for(let ticket of tickets){
-                let title = ticket.title.toLowerCase();
-                let description = ticket.description.toLowerCase()
-                // let current_user_id = current_user.id
-                // let email = ticket.user.email.toLowerCase()
+            for(let project of projects){
+                let title = project.title.toLowerCase();
+                let description = project.description.toLowerCase()
+                let profesor_name = (project.teacher.name + project.teacher.last_name).toLowerCase()
+  
                 if(title.indexOf(texto) !== -1){
                     resultado.innerHTML += `
-                        <tr data-id="${ticket.id}">
+                        <tr data-id="${project.id}">
                             <th scope="row">${a}</th>
-                            <td>${ticket.title}</td>
-                            <td>${ticket.user_id}</td>
-                            <td>${ticket.description}</td>
-                            <td><a href="/projects/${ticket.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a></td>
+                            <td>${project.title}</td>
+                            <td>${project.teacher.name} ${project.teacher.last_name}</td>
+                            <td>${project.description}</td>
+                            <td><a href="/projects/${project.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a></td>
                         </tr>
                     `;
                 } else if(description.indexOf(texto) !== -1){
                     resultado.innerHTML += `
-                        <tr data-id="${ticket.id}">
-                            <th scope="row">${ticket.id}</th>
-                            <td>${ticket.title}</td>
-                            <td>${ticket.user_id}</td>
-                            <td>${ticket.description}</td>
-                            <a href="/projects/${ticket.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a>
+                        <tr data-id="${project.id}">
+                            <th scope="row">${project.id}</th>
+                            <td>${project.title}</td>
+                            <td>${project.teacher.name} ${project.teacher.last_name}</td>
+                            <td>${project.description}</td>
+                            <a href="/projects/${project.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a>
+                        </tr>
+                    `;
+                }  else if(profesor_name.indexOf(texto) !== -1){
+                    resultado.innerHTML += `
+                        <tr data-id="${project.id}">
+                            <th scope="row">${project.id}</th>
+                            <td>${project.title}</td>
+                            <td>${project.teacher.name} ${project.teacher.last_name}</td>
+                            <td>${project.description}</td>
+                            <a href="/projects/${project.id}" class="bg-slate-100 rounded p-1.5 text-slate-400">Ver</a>
                         </tr>
                     `;
                 }
@@ -182,20 +197,25 @@
             // Agregar evento de click a cada fila de la tabla
             resultado.querySelectorAll('tr').forEach(tr => {
                 tr.addEventListener('click', () => {
-                    // Obtener el id del ticket correspondiente
+                    // Obtener el id del project correspondiente
                     const id = tr.dataset.id;
-                    // Construir la URL del ticket
+                    // Construir la URL del project
                     const url = `/projects/${id}`;
-                    // Redirigir al usuario a la URL del ticket
+                    // Redirigir al usuario a la URL del project
                     window.location.href = url;
                 });
             });
                     
             if (resultado.innerHTML === ''){
                 resultado.innerHTML += `
-                <tr>
-                    <th>No encontrado...</th>
-                </tr>
+                <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+                    <span style="font-size: 48px; margin-right: 10px;">🔍</span>
+                    <span>No project was found.</span>
+                    <div class="flex justify-center bottom-0">
+                        <img src="/pikachu-intro.png" alt="Pikachu " width="130" height="130">
+                    </div>
+
+                </div>
                 `
             }
 
