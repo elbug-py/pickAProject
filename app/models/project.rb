@@ -4,11 +4,26 @@
 #
 #  id                    :bigint           not null, primary key
 #  amount                :string
-#  description           :string           not null
+#  description           :string
 #  duration              :string
 #  is_payed              :boolean
 #  postulations_due_date :datetime
 #  project_type          :integer          default("titulo"), not null
+#  start_date            :date             default(Fri, 03 Nov 2023), not null
+#  title                 :string
+#  vacancies             :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  user_id               :bigint           not null
+#
+# Indexes
+#
+#  index_projects_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 
 #  start_date            :date             default(Tue, 31 Oct 2023), not null
 
@@ -54,7 +69,6 @@ class Project < ApplicationRecord
       open: 1,
     }
 
-  }
 
   def teacherName
     User.find(self.user_id).name + " " + User.find(self.user_id).last_name
