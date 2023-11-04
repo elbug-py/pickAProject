@@ -45,7 +45,6 @@ class InscriptionsController < ApplicationController
 
               flash[:notice ] = 'inscrito'
               redirect_to projects_path 
-              debugger
               description = "%s %s se a postulado al proyecto %s" % [current_user.name,current_user.last_name,project.title]
               Notification.create!(
                 title:"Has recibido una nueva postulacion",

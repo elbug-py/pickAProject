@@ -4,13 +4,14 @@
 #
 #  id                    :bigint           not null, primary key
 #  amount                :string
-#  description           :string
+#  description           :string           not null
 #  duration              :string
 #  is_payed              :boolean
 #  postulations_due_date :datetime
 #  project_type          :integer          default("titulo"), not null
 #  start_date            :date             default(Fri, 03 Nov 2023), not null
-#  title                 :string
+#  status                :integer          default("open")
+#  title                 :string           not null
 #  vacancies             :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null

@@ -24,11 +24,11 @@ puts("Create the Areas")
 
 # ---------------------------------------------------------------------------------------------------------
 
-ca=User.create(name:"Claudio", last_name:"Alvarez", email:"calvarez@uandes.cl", role:"teacher",password:"12345678", area:cc)
-rd=User.create(name:"Rafael", last_name:"Delpiano", email:"rdelpiano@uandes.cl", role:"teacher",password:"12345678",area:i)
-po=User.create(name:"Profe", last_name:"Obras", email:"profeobras@uandes.cl", role:"teacher",password:"12345678",area:oc)
-pe=User.create(name:"Profe", last_name:"Electro", email:"profeelectro@uandes.cl", role:"teacher",password:"12345678",area:e)
-pa=User.create(name:"Profe", last_name:"Ambiental", email:"profeambiental@uandes.cl", role:"teacher",password:"12345678",area:a)
+ca=User.create(name:"Claudio", last_name:"Alvarez", email:"calvarez@uandes.cl", role:"teacher",password:"password", area:cc)
+rd=User.create(name:"Rafael", last_name:"Delpiano", email:"rdelpiano@uandes.cl", role:"teacher",password:"password",area:i)
+po=User.create(name:"Profe", last_name:"Obras", email:"profeobras@uandes.cl", role:"teacher",password:"password",area:oc)
+pe=User.create(name:"Profe", last_name:"Electro", email:"profeelectro@uandes.cl", role:"teacher",password:"password",area:e)
+pa=User.create(name:"Profe", last_name:"Ambiental", email:"profeambiental@uandes.cl", role:"teacher",password:"password",area:a)
 
 puts("Create the Teachers")
 
@@ -40,7 +40,7 @@ puts("Create the Basic student")
 
 # ---------------------------------------------------------------------------------------------------------
 
-User.create(name:"EL ",last_name:"Administrador", email:"admin@miuandes.cl", role:"admin",password:"adminpass",area:cc)
+User.create(name:"EL ",last_name:"Administrador", email:"admin@miuandes.cl", role:"admin",password:"password",area:cc)
 
 puts ("Create the admin")
 
