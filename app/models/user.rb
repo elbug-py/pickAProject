@@ -53,4 +53,9 @@ class User < ApplicationRecord
   has_one_attached :profile_icon
 
   validates_length_of :password, minimum: 8, allow_blank: true
+  def self.ransackable_attributes(auth_object = nil)
+    ["name","last_name"]
+
+  end
+
 end

@@ -84,3 +84,5 @@ gem "devise", "~> 4.9"
 gem "annotate", "~> 3.2"
 
 gem "cancancan", "~> 3.5"
+
+gem "ransack", "~> 4.1"

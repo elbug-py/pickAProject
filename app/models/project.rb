@@ -53,6 +53,8 @@ class Project < ApplicationRecord
       user: [:name, :last_name]
     }
 
+    
+
     belongs_to :user
 
     has_many :inscriptions, dependent: :delete_all
@@ -74,6 +76,14 @@ class Project < ApplicationRecord
   def teacherName
     User.find(self.user_id).name + " " + User.find(self.user_id).last_name
     
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["description", "title","user_id"] # Add the attributes you want to be searchable
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "user"]
   end
 
 end

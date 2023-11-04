@@ -15,23 +15,15 @@
 
 <div class="ml-4 mt-4">
     <h1> Projects </h1>
-        <div>
-            <%=render "search_projects"%>
-        </div>
-
+        
     <% if can? :create, Project %>
         <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
     <% end %>
 
-    <div>
-        <%=render "search_projects"%>
-    </div>
-
-    <%= form_tag projects_path, method: :get do %>
-        <%= text_field_tag :teacher_name, params[:teacher_name], placeholder: "Search by Teacher Name" %>
-        <%= submit_tag "Search", class: "bg-blue-300 rounded p-1.5 text-white" %>
+    <%= search_form_for @q, url: projects_path do |form| %>
+        <%= form.search_field :title_or_description_or_user_name_or_user_last_name_cont, placeholder: "Search..." %>
+        <%= form.submit "Search" %>
     <% end %>
-
     <% if @projects.nil? || @projects.empty?%>
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <span style="font-size: 48px; margin-right: 10px;">🔍</span>

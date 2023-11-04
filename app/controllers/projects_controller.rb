@@ -2,10 +2,13 @@ class ProjectsController < ApplicationController
     
     # GET /projects
     def index
+        @q = Project.ransack(params[:q])
         if current_user.teacher?
-            @projects = Project.where(user_id: @current_user.id)
+            @projects = @q.result.where(user_id: current_user.id)
+            # @projects = Project.where(user_id: @current_user.id)
         else 
-            @projects = Project.all
+            @projects = @q.result
+
 
             if params[:teacher_name].present?
                 teacher_name = params[:teacher_name].split
