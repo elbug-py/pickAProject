@@ -9,8 +9,13 @@
 #  is_payed              :boolean
 #  postulations_due_date :datetime
 #  project_type          :integer          default("titulo"), not null
+
+#  start_date            :date             default(Tue, 31 Oct 2023), not null
+
+
 #  status                :integer          default("open")
 #  title                 :string           not null
+
 #  vacancies             :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null

@@ -24,6 +24,11 @@
         </div>
 
         <div class="field mb-2">
+          <%= f.label :start_date %><br />
+          <%= f.datetime_field :start_date, class:"rounded" %>
+        </div>
+
+        <div class="field mb-2">
           <%= f.label :is_payed %><br />
           <%= f.check_box :is_payed, class:"rounded" %>
         </div>

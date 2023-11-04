@@ -1,0 +1,8 @@
+es:
+  date:
+    formats:
+      default: "%d de %B de %Y"
+    day_names: [Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo]
+    abbr_day_names: [Lun, Mar, Mié, Jue, Vie, Sáb, Dom]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
