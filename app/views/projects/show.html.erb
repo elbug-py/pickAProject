@@ -8,7 +8,8 @@
   <div> Estado: <%= @project.status%> </div>
 
   <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
-  <%if @project.inscriptions.size != 0%>
+  
+  <%if @project.inscriptions.size != 0 and not current_user.student?%>
   <button onclick="verPostulantes()">Ver postulantes</button>
   <!-- <select id="filterDropdown">
     <option value="all">Mostrar todos</option>
