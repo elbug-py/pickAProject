@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
                 last_name = teacher_name[1]
           
                 if first_name.present? && last_name.present?
+                    
                   @teachers = User.where("LOWER(name) LIKE :first_name AND LOWER(last_name) LIKE :last_name", first_name: "%#{first_name.downcase}%", last_name: "%#{last_name.downcase}%")
                 else
                   @teachers = User.where("LOWER(name) LIKE :search OR LOWER(last_name) LIKE :search", search: "%#{teacher_name.join(' ').downcase}%")
@@ -49,6 +50,13 @@ class ProjectsController < ApplicationController
         end
         @project = @user.projects.new(project_params)
         if @project.save
+            description = "Tu proyecto #{@project.title} ha sido creado!"
+            Notification.create!(
+                title:"Has creado un nuevo proyecto",
+                description:description,
+                user:@project.user,
+                project:@project
+                )
             redirect_to projects_path
         else
             render 'new'
@@ -99,6 +107,15 @@ class ProjectsController < ApplicationController
     def close
         @project = Project.find(params[:id])
         @project.update(status: :closed)
+        description = "Tu proyecto #{@project.title} ha sido cerrado!"
+
+        Notification.create!(
+                title:"Has cerrado un nuevo proyecto",
+                description:description,
+                user:@project.user,
+                project:@project
+                )
+
         redirect_to projects_path
     end
 
