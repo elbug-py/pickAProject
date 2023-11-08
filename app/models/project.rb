@@ -85,5 +85,11 @@ class Project < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "user"]
   end
+  def self.check_close
+    expired_projects = Project.all.where("postulations_due_date < ?", Time.now)
+    expired_projects.each do |project|
+      project.update(status: 0)
+    end
+  end
 
 end
