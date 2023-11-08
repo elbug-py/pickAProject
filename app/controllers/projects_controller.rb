@@ -65,6 +65,8 @@ class ProjectsController < ApplicationController
 
     def destroy
         @project = Project.find(params[:id])
+        # debugger
+        @project.notifications.destroy_all
         @project.destroy
         redirect_to projects_path
     end

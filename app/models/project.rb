@@ -59,7 +59,7 @@ class Project < ApplicationRecord
 
     has_many :inscriptions, dependent: :delete_all
     has_many :users, through: :inscriptions
-    has_many :notifications
+    has_many :notifications, dependent: :destroy
 
 
     enum project_type: {
@@ -85,5 +85,7 @@ class Project < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     [ "user"]
   end
+ 
+  
 
 end
