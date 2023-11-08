@@ -47,7 +47,7 @@ class InscriptionsController < ApplicationController
               redirect_to projects_path 
               description = "%s %s se a postulado al proyecto %s" % [current_user.name,current_user.last_name,project.title]
               Notification.create!(
-                title:"Has recibido una nueva postulacion",
+                title:"Has recibido una nueva postulación",
                 description:description,
                 user:project.user,
                 project:project
@@ -72,9 +72,9 @@ class InscriptionsController < ApplicationController
         if current_user.teacher? or current_user.admin? && @inscription.status != "approved"
           @inscription.update(status: 1)
           @project.update(vacancies: @project.vacancies - 1)
-          description = "Tu postulacion a %s fue aceptada" % [@project.title]
+          description = "Tu postulación a %s fue aceptada" % [@project.title]
           Notification.create!(
-            title:"Postulacion Aceptada",
+            title:"Postulación Aceptada",
             description:description,
             user:@inscription.user,
             project:@project,
@@ -92,10 +92,10 @@ class InscriptionsController < ApplicationController
         if current_user.teacher? or current_user.admin? && @inscription.status != "rejected"
           @inscription.update(status: 2)
           @project.update(vacancies: @project.vacancies + 1)
-          description = "Tu postulacion a %s fue rechazada" % [@project.title]
+          description = "Tu postulación a %s fue rechazada" % [@project.title]
           # debugger
           Notification.create!(
-            title:"Postulacion Rechazada",
+            title:"Postulación Rechazada",
             description:description,
             user:@inscription.user,
             project:@project,

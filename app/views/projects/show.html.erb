@@ -2,10 +2,10 @@
 
   <div> Título: <%= @project.title %> </div>
   <div> Descripción: <%= @project.description %> </div>
-  <div> Duración: <%= @project.duration %> </div>
+  <div> Duración: <%= @project.duration %> semanas </div>
   <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div>
   <div> Vacantes: <%= @project.vacancies %> </div>
-  <div> Estado: <%= @project.status%> </div>
+  <div> Estado: <%= @project.show_state%> </div>
 
   <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
   
@@ -30,7 +30,7 @@
     <!-- </div> -->
   </div>
   <% else %>
-    <p>No hay ninguna postulacion aun.</p>
+    <p>No hay ninguna postulación aún.</p>
   <% end %>
 <% if can? :manage,Project%>
 
@@ -90,15 +90,6 @@
     }
   });
 </script>
-
-<!--    <div> Título: <%= @project.title %> </div> -->
-<!--    <div> Descripción: <%= @project.description %> </div> -->
-<!--    <div> Duración: <%= @project.duration %> </div> -->
-<!--    <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div> -->
-<!--    <div> Vacantes: <%= @project.vacancies %> </div> -->
-
-<!--    <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %> -->
-<!--    </div> -->
 
 
 <% end %>

@@ -53,11 +53,8 @@
 
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2">Estado:</label>
-        <%if @user.profile_state=="Dont_disturb" %>
-          <p>Don't disturb</p>
-        <%else %>
-          <p><%= @user.profile_state %></p>
-        <%end %>
+        
+        <p><%= @user.show_profile_state  %></p>
         
       </div>
 

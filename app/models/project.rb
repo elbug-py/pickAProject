@@ -63,8 +63,8 @@ class Project < ApplicationRecord
 
 
     enum project_type: {
-    magister: 0,
-    titulo: 1,
+    magíster: 0,
+    título: 1,
 
     }
     enum status: {
@@ -84,6 +84,15 @@ class Project < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     [ "user"]
+  end
+
+  def show_state
+    if self.status == 0
+      return "Cerrado"
+    else
+      return "Abierto"
+
+    end
   end
  
   

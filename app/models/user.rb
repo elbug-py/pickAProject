@@ -58,4 +58,20 @@ class User < ApplicationRecord
 
   end
 
+  def show_profile_state
+    case self.profile_state
+    when "Available"
+      return "Disponible"
+    when "Busy"
+      return "Ocupado"
+    when "Dont_disturb"
+      return "No molestar"
+    else
+      return "Desconectado"
+    end
+
+
+
+  end
+
 end

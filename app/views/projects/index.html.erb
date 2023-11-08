@@ -27,7 +27,8 @@
     <% if @projects.nil? || @projects.empty?%>
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <span style="font-size: 48px; margin-right: 10px;">🔍</span>
-            <span>No project has been created yet, why didn't you create one?</span>
+            <span>Ningun proyecto ha sido creado aún, ¿Por qué no creas uno tú?</span>
+
             <div class="flex justify-center bottom-0">
                 <img src="/pikachu-intro.png" alt="Pikachu " width="130" height="130">
             </div>
@@ -48,14 +49,14 @@
 
                     <div> Fecha de inicio: <%= l project.start_date, format: :default%></div>
 
-                    <div> Estado: <%= project.status %></div>
+                    <div> Estado: <%= project.show_state %></div>
 
 
 
                     <% if project.is_payed %>
-                        <div> Payment: <%= project.amount %> </div>
+                        <div> Sueldo: <%= project.amount %> </div>
                     <% else %>
-                        <div> Payment: without payment </div>
+                        <div> Sueldo: Sin Sueldo </div>
                     <% end %>
 
                     <div style="display: flex; gap: 10px;">
