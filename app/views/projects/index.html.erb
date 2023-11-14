@@ -44,7 +44,7 @@
                     <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
 
-                    <%if @current_user.role== 'techer'%>
+                    <%if @current_user.role != 'teacher'%>
                         <div> Profesor: <%= project.teacherName %> </div>
                     <%end%>
                     <div> Duración: <%= project.duration %> </div>
