@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_02_234255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_type", default: 1, null: false
-    t.date "start_date", default: "2023-11-03", null: false
+    t.date "start_date", default: "2023-11-14", null: false
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
