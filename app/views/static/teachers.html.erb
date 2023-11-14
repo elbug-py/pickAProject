@@ -13,6 +13,8 @@
           <%= teacher.area.name %>
         </p>
 
+        <%=button_to "Ver Proyecto", teacher_projects_path(teacher), class:"rounded bg-green-300 hover:bg-green-500", method: :get%>
+
       </div>
     </div>
   <% end %>
