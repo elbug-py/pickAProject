@@ -31,11 +31,6 @@
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "rounded" %>
         </div>
-
-        <div class="field mb-2">
-          <%= f.label :profile_state,"Estado del perfil" %><br />
-          <%= f.select :profile_state, options_for_select([["Available", "Available"], ["Busy", "Busy"], ["Don't disturb", "Dont_disturb"]], {selected: @user.profile_state}), class: "rounded" %>
-        </div>
         
         <div class="actions flex flex-col justify-center items-center">
           <%= f.submit "Actualizar", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 mb-1" %>

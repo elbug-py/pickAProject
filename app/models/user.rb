@@ -8,7 +8,6 @@
 #  last_name              :string           default(""), not null
 #  name                   :string           default(""), not null
 #  profile_icon           :string
-#  profile_state          :integer          default("Available")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -39,12 +38,6 @@ class User < ApplicationRecord
     teacher: 2
   }
 
-  enum profile_state:{
-    Available: 0,
-    Busy: 1,
-    Dont_disturb: 2,
-  }
-
   has_many :projects
   has_many :inscriptions
   belongs_to :area
@@ -55,22 +48,6 @@ class User < ApplicationRecord
   validates_length_of :password, minimum: 8, allow_blank: true
   def self.ransackable_attributes(auth_object = nil)
     ["name","last_name"]
-
-  end
-
-  def show_profile_state
-    case self.profile_state
-    when "Available"
-      return "Disponible"
-    when "Busy"
-      return "Ocupado"
-    when "Dont_disturb"
-      return "No molestar"
-    else
-      return "Desconectado"
-    end
-
-
 
   end
 
