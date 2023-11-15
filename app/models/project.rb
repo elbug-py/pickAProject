@@ -8,8 +8,8 @@
 #  duration              :string
 #  is_payed              :boolean
 #  postulations_due_date :datetime
-#  project_type          :integer          default("titulo"), not null
-#  start_date            :date             default(Fri, 03 Nov 2023), not null
+#  project_type          :integer          default("título"), not null
+#  start_date            :date             default(Wed, 08 Nov 2023), not null
 #  status                :integer          default("open")
 #  title                 :string           not null
 #  vacancies             :integer
@@ -87,7 +87,7 @@ class Project < ApplicationRecord
   end
 
   def show_state
-    if self.status == 0
+    if self.status == "closed"
       return "Cerrado"
     else
       return "Abierto"

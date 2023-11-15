@@ -4,10 +4,10 @@ class ProjectsController < ApplicationController
     def index
         @q = Project.ransack(params[:q])
         if current_user.teacher?
-            @projects = @q.result.where(user_id: current_user.id)
+            @pagy,@projects = pagy(@q.result.where(user_id: current_user.id), items:5)
             # @projects = Project.where(user_id: @current_user.id)
         else 
-            @projects = @q.result
+            @pagy,@projects = pagy(@q.result, items:5)
 
 
             if params[:teacher_name].present?
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
                   @teachers = User.where("LOWER(name) LIKE :search OR LOWER(last_name) LIKE :search", search: "%#{teacher_name.join(' ').downcase}%")
                 end
           
-                @projects = @projects.where(user_id: @teachers.pluck(:id))
+                @pagy,@projects = pagy(@projects.where(user_id: @teachers.pluck(:id)), items:5)
             end
         end
     end
