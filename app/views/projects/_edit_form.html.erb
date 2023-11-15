@@ -3,6 +3,17 @@
   <h2 class="text-3xl font-bold mt-10"> Crear un proyecto </h2>
 
   <%= form_with model: @project do |f| %>
+    <% if @project.errors.any? %>
+      <div id="error_explanation" class="bg-red-100 text-red-500 p-2 mb-2 rounded">
+        <h2 class="text-xl font-semibold">¡Oops! Hubo algunos errores:</h2>
+        <ul>
+          <% @project.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
     <div class="field mb-2">
       <%= f.label :title,"Título" %><br />
       <%= f.text_field :title, autofocus: true, class:"rounded" %>

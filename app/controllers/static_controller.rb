@@ -20,4 +20,13 @@ class StaticController < ApplicationController
     def teachers
         @teachers = User.where(role: 'teacher')
     end
+
+    def teacher_projects
+        @teacher = User.find(params[:teacher_id])
+        @teacher_projects = @teacher.projects
+        respond_to do |format|
+            format.html { render :teacher_projects }
+            format.json { render json: @teacher_projects }
+          end
+    end
 end

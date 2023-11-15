@@ -13,18 +13,10 @@
 
 
 
-<div class="ml-4 mt-4 mb-4">
-    <h1> Projects </h1>
-        
-    <% if can? :create, Project %>
-        <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
-    <% end %>
-
-    <%= search_form_for @q, url: projects_path do |form| %>
-        <%= form.search_field :title_or_description_or_user_name_or_user_last_name_cont, placeholder: "Buscar..." %>
-        <%= form.submit "Buscar" %>
-    <% end %>
-    <% if @projects.nil? || @projects.empty?%>
+<div class="ml-4 mt-4">
+    <h1 class="text-5xl"> Proyectos de profesor <%=@teacher.name %> <%= @teacher.last_name%> </h1>
+        <br>
+    <% if @teacher_projects.nil? || @teacher_projects.empty?%>
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <span style="font-size: 48px; margin-right: 10px;">🔍</span>
             <span>Ningun proyecto ha sido creado aún, ¿Por qué no creas uno tú?</span>
@@ -35,7 +27,7 @@
 
         </div>
     <% else %>
-        <% @projects.each do |project| %>
+        <% @teacher_projects.each do |project| %>
 
 
             <div class="card">    
@@ -43,12 +35,11 @@
 
                     <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
+                    
+                    <div> Profesor: <%= project.teacherName %> </div>
 
-                    <%if @current_user.role != 'teacher'%>
-                        <div> Profesor: <%= project.teacherName %> </div>
-                    <%end%>
                     <div> Duración: <%= project.duration %> </div>
-                    <div> Tipo: <%= project.project_type.capitalize %> </div>
+                    <div> Tipo: <%= project.project_type %> </div>
 
                     <div> Fecha de inicio: <%= l project.start_date, format: :default%></div>
 
@@ -93,5 +84,4 @@
 
     <% end %>
 
-    <%== pagy_nav(@pagy)%>
 </div>
