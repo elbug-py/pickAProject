@@ -52,13 +52,6 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Estado:</label>
-        
-        <p><%= @user.show_profile_state  %></p>
-        
-      </div>
-
-      <div class="mb-4">
         <% if @user.role == "teacher" %>
           <label class="block text-gray-700 text-sm font-bold mb-2">Proyectos Creados:</label>
           <ul>

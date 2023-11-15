@@ -4,10 +4,10 @@ class ProjectsController < ApplicationController
     def index
         @q = Project.ransack(params[:q])
         if current_user.teacher?
-            @projects = @q.result.where(user_id: current_user.id)
+            @pagy,@projects = pagy(@q.result.where(user_id: current_user.id), items:5)
             # @projects = Project.where(user_id: @current_user.id)
         else 
-            @projects = @q.result
+            @pagy,@projects = pagy(@q.result, items:5)
 
 
             if params[:teacher_name].present?
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
                   @teachers = User.where("LOWER(name) LIKE :search OR LOWER(last_name) LIKE :search", search: "%#{teacher_name.join(' ').downcase}%")
                 end
           
-                @projects = @projects.where(user_id: @teachers.pluck(:id))
+                @pagy,@projects = pagy(@projects.where(user_id: @teachers.pluck(:id)), items:5)
             end
         end
     end
@@ -57,8 +57,10 @@ class ProjectsController < ApplicationController
                 user:@project.user,
                 project:@project
                 )
+            flash[:notice] = "Proyecto creado con éxito! :)"
             redirect_to projects_path
         else
+            flash[:alert] = "Faltan parámetros por rellenar, intente de nuevo."
             render 'new'
         end
     end
@@ -74,9 +76,11 @@ class ProjectsController < ApplicationController
     def update
         @project = Project.find(params[:id])
         if @project.update(project_params)
+            flash[:notice] = "Proyecto editado con éxito! :)"
             redirect_to projects_path
+
         else
-            render 'edit'
+            render 'edit', status: :unprocessable_entity
         end
     end
 
@@ -122,6 +126,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status, :search_query)
+        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status, :search_query, :teacher_id, :start_date)
     end
 end

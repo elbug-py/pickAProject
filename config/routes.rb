@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get '/teachers', to: 'static#teachers'
 
+  get '/:teacher_id/teacher_projects', to: 'static#teacher_projects', as: "teacher_projects"
+
   resources :projects do
     resources :inscriptions
     # collection do

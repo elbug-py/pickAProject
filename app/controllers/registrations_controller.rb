@@ -17,7 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
     private
   
     def resource_params
-      params.require(:user).permit(:email, :name, :last_name, :profile_state, :profile_icon)
+      params.require(:user).permit(:email, :name, :last_name, :profile_icon)
     end
   
     def successfully_updated?(resource)

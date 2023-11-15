@@ -13,7 +13,7 @@
 
 
 
-<div class="ml-4 mt-4">
+<div class="ml-4 mt-4 mb-4">
     <h1> Projects </h1>
         
     <% if can? :create, Project %>
@@ -45,7 +45,7 @@
                     <div class="text-sm leading-6 text-gray-900"> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
 
-                    <%if @current_user.role== 'teacher'%>
+                    <%if @current_user.role != 'teacher'%>
                         <p class="mt-1 text-sm leading-5">
                             <span class="font-bold">Profesor: </span>
                             <span class="mt-1 text-xs leading-5 text-gray-500">
@@ -53,6 +53,7 @@
                             </span>
                         </p>
                     <%end%>
+
 
                     <p class="mt-1 text-sm leading-5">
                         <span class="font-bold">Duración:</span>
@@ -145,4 +146,5 @@
 
     <% end %>
 
+    <%== pagy_nav(@pagy)%>
 </div>

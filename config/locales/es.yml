@@ -6,3 +6,64 @@ es:
     abbr_day_names: [Lun, Mar, Mié, Jue, Vie, Sáb, Dom]
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+
+  activerecord:
+    attributes:
+      project:
+        amount: "Cantidad"
+        description: "Descripción"
+        duration: "Duración"
+        is_payed: "¿Pagado?"
+        postulations_due_date: "Fecha Fin de Postulaciones"
+        project_type: "Tipo de Proyecto"
+        start_date: "Fecha de Inicio"
+        status: "Estado del Proyecto"
+        title: "Título"
+        vacancies: "Vacantes"
+        user_id: "Profesor"
+
+      user:
+        email: "Correo electrónico"
+        encrypted_password: "Contraseña encriptada"
+        last_name: "Apellido"
+        name: "Nombre"
+        profile_icon: "Ícono de perfil"
+        role: "Rol"
+        area_id: "Área"
+        
+    errors:
+      models:
+        project:
+          attributes:
+            amount:
+              blank: "no puede estar en blanco"
+            description:
+              blank: "no puede estar en blanco"
+            duration:
+              blank: "no puede estar en blanco"
+            is_payed:
+              blank: "no puede estar en blanco"
+            postulations_due_date:
+              blank: "no puede estar en blanco"
+            project_type:
+              blank: "no puede estar en blanco"
+            start_date:
+              blank: "no puede estar en blanco"
+            status:
+              blank: "no puede estar en blanco"
+            title:
+              blank: "no puede estar en blanco"
+            vacancies:
+              blank: "no puede estar en blanco"
+        user:
+          attributes:
+            email:
+              blank: "no puede estar en blanco"
+            last_name:
+              blank: "no puede estar en blanco"
+            name:
+              blank: "no puede estar en blanco"
+            role:
+              blank: "no puede estar en blanco"
+            area_id:
+              blank: "no puede estar en blanco"
