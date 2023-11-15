@@ -50,14 +50,14 @@
 class Project < ApplicationRecord
     validates :status, inclusion: { in: %w(open closed) }
     validates :description, presence: true
-    validates :duration, presence: true
-    validates :is_payed, presence: true
-    validates :postulations_due_date, presence: true
-    validates :project_type, presence: true
-    validates :start_date, presence: true
-    validates :status, presence: true
+    # validates :duration, presence: true
+    # validates :is_payed, presence: true
+    # validates :postulations_due_date, presence: true
+    # validates :project_type, presence: true
+    # validates :start_date, presence: true
+    # validates :status, presence: true
     validates :title, presence: true
-    validates :vacancies, presence: true
+    # validates :vacancies, presence: true
 
     include PgSearch::Model
     
