@@ -87,7 +87,7 @@ class Project < ApplicationRecord
   end
 
   def show_state
-    if self.status == 0
+    if self.status == 'closed'
       return "Cerrado"
     else
       return "Abierto"
