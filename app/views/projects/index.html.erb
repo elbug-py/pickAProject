@@ -17,13 +17,14 @@
     <h1> Projects </h1>
         
     <% if can? :create, Project %>
-        <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-300 rounded p-1.5 text-white mb-4" %>
+        <%= button_to "Crear Proyecto", new_project_path, method: :get, class:"bg-green-700 text-white rounded p-2 hover:bg-green-600 hover:transition duration-300 ease-in-out mb-2" %>
     <% end %>
 
     <%= search_form_for @q, url: projects_path do |form| %>
-        <%= form.search_field :title_or_description_or_user_name_or_user_last_name_cont, placeholder: "Buscar..." %>
-        <%= form.submit "Buscar" %>
+        <%= form.search_field :title_or_description_or_user_name_or_user_last_name_cont, placeholder: "Buscar..."%>
+        <%= form.submit "Buscar", class: "bg-green-500 text-white rounded p-2 hover:bg-green-600 hover:transition duration-300 ease-in-out mb-2" %>
     <% end %>
+
     <% if @projects.nil? || @projects.empty?%>
         <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
             <span style="font-size: 48px; margin-right: 10px;">🔍</span>
@@ -38,51 +39,103 @@
         <% @projects.each do |project| %>
 
 
-            <div class="card">    
-                    <div> <h1 style="font-size: 28px;"> <%= project.title %>  </h1> </div>
+            <div class="p-4 bg-white max-w-xl border p-2 mb-2 mt-4">    
+                    <div class="font-bold"> <h1 style="font-size: 28px;"> <%= project.title %>  </h1> </div>
 
-                    <div> <p> <%= (project.description).truncate(50)%>  </p> </div>
+                    <div class="text-sm leading-6 text-gray-900"> <p> <%= (project.description).truncate(50)%>  </p> </div>
                     <br>
 
                     <%if @current_user.role != 'teacher'%>
-                        <div> Profesor: <%= project.teacherName %> </div>
+                        <p class="mt-1 text-sm leading-5">
+                            <span class="font-bold">Profesor: </span>
+                            <span class="mt-1 text-xs leading-5 text-gray-500">
+                                <%= project.teacherName %>
+                            </span>
+                        </p>
                     <%end%>
-                    <div> Duración: <%= project.duration %> </div>
-                    <div> Tipo: <%= project.project_type.capitalize %> </div>
-
-                    <div> Fecha de inicio: <%= l project.start_date, format: :default%></div>
-
-                    <div> Estado: <%= project.show_state %></div>
 
 
+                    <p class="mt-1 text-sm leading-5">
+                        <span class="font-bold">Duración:</span>
+                        <span class="mt-1 text-xs leading-5 text-gray-500">
+                        <%= project.duration %>
+                        </span>
+                    </p>
+
+                    <p class="mt-1 text-sm leading-5">
+                        <span class="font-bold">Tipo: </span>
+                        <span class="mt-1 text-xs leading-5 text-gray-500">
+                        <%= project.project_type %> 
+                        </span>
+                    </p>
+
+                    <p class="mt-1 text-sm leading-5">
+                        <span class="font-bold text-sm">Fecha de inicio: </span>
+                        <span class="mt-1 text-xs leading-5 text-gray-500">
+                        <%= l project.start_date, format: :default%>
+                        </span>
+                    </p>
+                    
 
                     <% if project.is_payed %>
-                        <div> Sueldo: <%= project.amount %> </div>
+                        <% if project.amount.to_i <= 0 %>
+                            <p class="mt-1 leading-5 mb-2">
+                            <span class="font-bold text-sm"> Sueldo: </span>
+                            <span class="mt-1 text-xs leading-5 text-gray-500" >
+                                Sin sueldo
+                            </span>
+                        </p>
+                        <%else  %>
+                            <p class="mt-1 leading-5 mb-2">
+                                <span class="font-bold text-sm"> Sueldo: </span>
+                                <span class="mt-1 text-xs leading-5 text-gray-500" >
+                                    <%= project.amount %> 
+                                </span>
+                            </p>
+                        <%end  %>
+
                     <% else %>
-                        <div> Sueldo: Sin Sueldo </div>
+
+                        <p class="mt-1 leading-5 mb-2">
+                            <span class="font-bold text-sm">Sueldo: </span>
+                            <span class="mt-1 text-xs leading-5 text-gray-500" >
+                                Sin sueldo
+                            </span>
+                        </p>
+
                     <% end %>
+
+                    <p class="mt-1 leading-5 mb-2">
+                        <span class="font-bold">Estado: </span>
+                        <span class="<%= project.status == 'open' ? 'text-green-800 mb-4' : 'text-red-500 mb-4' %>">
+                        <%= project.show_state%> 
+                        </span>
+                    </p>
+
+
+
 
                     <div style="display: flex; gap: 10px;">
                     <% if can? :view, Project %>
-                        <%= button_to "Ver", project_path(project), method: :get, class: "bg-slate-100 rounded p-1.5 text-slate-400"%>
+                        <%= link_to "Ver", project_path(project), class: "bg-gray-300  rounded p-2 hover:bg-gray-400 hover:transition duration-300 ease-in-out" %>
                     <% end %>
                     
                     <% if can? :update, Project %>
                         <% if project.status == "open" %>
-                            <%= button_to "Cerrar Proyecto", close_project_path(project), method: :patch, class: "bg-red-500 rounded p-1.5 text-white" %>
+                            <%= button_to "Cerrar Proyecto", close_project_path(project), method: :patch,class: "bg-red-600 text-white rounded p-2 hover:bg-red-500 hover:transition duration-300 ease-in-out" %>
                         <% else %>
-                            <%= button_to "Abrir Proyecto", open_project_path(project), method: :patch, class: "bg-green-300 rounded p-1.5 text-white" %>
+                            <%= button_to "Abrir Proyecto", open_project_path(project), method: :patch, class: "bg-green-600 text-white rounded p-2 hover:bg-green-500 hover:transition duration-300 ease-in-out"  %>
                         <% end %>
-                        <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 rounded p-1.5 text-white" %>
+                        <%= button_to "Editar", edit_project_path(project), method: :get, class: "bg-blue-300 text-white rounded p-2 hover:bg-blue-500 hover:transition duration-300 ease-in-out" %>
                     <% end %>
 
                     <% if can? :destroy, Project %>
-                        <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-500 rounded p-1.5 text-white" %>
+                        <%= button_to "Eliminar", project_path(project), method: :delete, class: "bg-red-700 text-white rounded p-2 hover:bg-red-600 hover:transition duration-300 ease-in-out" %>
                     <% end %>
 
                     <% if can? :create, Inscription%>
                         <% if project.status == "open"%>
-                            <%= button_to "Inscribirse", project_inscriptions_path(project_id: project.id), method: :post, class: "bg-green-300 rounded p-1.5 text-white" %>
+                            <%= button_to "Inscribirse", project_inscriptions_path(project_id: project.id), method: :post, class: "bg-green-600 text-white rounded p-2 hover:bg-green-500 hover:transition duration-300 ease-in-out" %>
                         <%end%>
                     <% end %>
                     </div>

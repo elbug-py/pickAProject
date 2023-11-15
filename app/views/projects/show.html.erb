@@ -1,37 +1,75 @@
-<div class="mb-4">
+<div class="flex">
+  <div class="p-4 bg-white max-w-xl border p-2 mb-2 mt-4" style="margin-left: 10%;">
 
-  <div> Título: <%= @project.title %> </div>
-  <div> Descripción: <%= @project.description %> </div>
-  <div> Duración: <%= @project.duration %> semanas </div>
-  <div> Fecha límite de postulaciones: <%= @project.postulations_due_date %> </div>
-  <div> Vacantes: <%= @project.vacancies %> </div>
-  <div> Estado: <%= @project.show_state%> </div>
+    <div class="font-bold">
+        <%= @project.title %> 
+    </div>
+    <br>
 
-  <%= link_to "Volver", projects_path, class: "bg-slate-100 rounded p-1.5 text-slate-400 mt-2" %>
-  
-  <%if @project.inscriptions.size != 0 and not current_user.student?%>
-  <button onclick="verPostulantes()">Ver postulantes</button>
-  <!-- <select id="filterDropdown">
-    <option value="all">Mostrar todos</option>
-    <% @areas.each do |area| %>
-    <option value="<%= area.id %>"><%= area.name %></option>
+    <div class="font-bold text-sm"> Descripción: </div>
+
+    <div class="text-sm leading-6 text-gray-900">
+      <%= @project.description %>
+    </div> 
+    
+
+    <div class="font-bold text-sm mt-2">  Duración: </div>
+    <div class="mt-1 text-xs leading-5 text-gray-500">
+      <%= @project.duration %> semanas 
+    </div> 
+
+    <div class="font-bold text-sm mt-2">  Fecha límite de postulaciones: </div>
+    <div class="mt-1 text-xs leading-5 text-gray-500">  
+      <%= @project.postulations_due_date %> 
+    </div>
+
+    <div class="font-bold text-sm mt-2">  Vacantes: </div>
+    <div class="mt-1 text-xs leading-5 text-gray-500">  
+      <%= @project.vacancies %> 
+    </div>
+
+    <div class="font-bold text-sm mt-2"> Estado: </div>
+    <div class="<%= @project.status == 'open' ? 'text-green-800 mb-4' : 'text-red-500 mb-4' %>">
+      <%= @project.show_state%> 
+    </div>
+    
+   <%if current_user.role !="student" %> 
+    <% if @project.inscriptions.size != 0 and not current_user.student? %>
+      <%= link_to "Volver", projects_path, class: "bg-gray-300  rounded p-2 hover:bg-gray-400 hover:transition duration-300 ease-in-out" %>
+      
+      <button onclick="verPostulantes()" class="bg-green-600 text-white rounded p-2 text-sm hover:bg-green-900 transition duration-300 ease-in-out">
+        Ver postulantes
+      </button>
+      </div>
+    <!-- <select id="filterDropdown">
+      <option value="all">Mostrar todos</option>
+      <% @areas.each do |area| %>
+      <option value="<%= area.id %>"><%= area.name %></option>
+      <% end %>
+    </select> -->
+
+    <div id="inscriptions" >
+        <!-- <ol id="filteredResults">
+          <% @project.inscriptions.each_with_index do |inscription, index| %>
+          <li>
+            <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
+            <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
+          </li>
+          <% end %>
+        </ol> -->
+      <!-- </div> -->
+    </div>
+    <% else %>
+      <p class="text-orange-500 mb-4">No hay ninguna postulación aún.</p>
+      <%= link_to "Volver", projects_path, class: "bg-gray-300  rounded p-2 hover:bg-gray-400 hover:transition duration-300 ease-in-out" %>
     <% end %>
-  </select> -->
 
-  <div id="inscriptions">
-      <!-- <ol id="filteredResults">
-        <% @project.inscriptions.each_with_index do |inscription, index| %>
-        <li>
-          <strong><%= index + 1 %></strong> - <%= inscription.user.name %> <%= inscription.user.last_name %>, Área: 
-          <span class="area" data-area-id="<%= inscription.user.area.id %>"><%= inscription.user.area.name %></span>
-        </li>
-        <% end %>
-      </ol> -->
-    <!-- </div> -->
-  </div>
-  <% else %>
-    <p>No hay ninguna postulación aún.</p>
-  <% end %>
+  <%else  %>
+    <%= link_to "Volver", projects_path, class: "bg-gray-300  rounded p-2 hover:bg-gray-400 hover:transition duration-300 ease-in-out" %>
+  <%end  %>
+
+</div>
+
 <% if can? :manage,Project%>
 
 <!-- Dropdown para filtrar por área -->
@@ -42,28 +80,46 @@
   // Obtener elementos HTML
   const filterDropdown = document.getElementById('filterDropdown');
   const filteredResults = document.getElementById('filteredResults');
-  const project_id = <%=@project.id%>;
+  const project_id = <%= @project.id %>;
   const parent = document.getElementById('inscriptions');
 
-  function verPostulantes(){
+  function verPostulantes() {
     fetch(`/projects/${project_id}/inscriptions/`)
-    .then(response=>{
-      if (!response.ok){
-        throw new Error('Hubo un error')
-      }
-      return response.json();
-    })
-    .then(data =>{
-    
-      var e  = document.createElement("h3")
-      var txt = document.createTextNode("Postulantes:")
-      e.appendChild(txt)
-      parent.innerHTML = e.innerHTML + data.html
-      // parent.insertBefore(e,parent)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Hubo un error');
+        }
+        return response.json();
+      })
+      .then(data => {
+        var e = document.createElement("h3");
+        var txt = document.createTextNode("Postulantes:");
+        e.appendChild(txt);
+
+        // Remove existing inscriptions
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+
+        // Append the header
+        parent.appendChild(e);
+
+        parent.classList.add("p-4", "bg-white", "max-w-xl", "border", "p-2", "ml-2", "mb-2", "mt-4");
+
+        // Append each inscription without commas
+        data.html.forEach((html, index) => {
+          if (index > 0) {
+            parent.appendChild(document.createTextNode(" "));
+          }
+          var temp = document.createElement('div');
+          temp.innerHTML = html;
+           temp.firstChild.classList.add("mt-2");
+          parent.appendChild(temp.firstChild);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   // Agregar un evento de cambio al dropdown
@@ -72,7 +128,7 @@
 
     // Filtrar resultados en función del área seleccionada
     const filteredList = Array.from(filteredResults.getElementsByTagName('li'));
-    
+
     if (selectedAreaId === 'all') {
       // Mostrar todos los resultados si se selecciona "Mostrar todos"
       filteredList.forEach(item => (item.style.display = ''));
@@ -80,7 +136,7 @@
       // Ocultar los resultados cuyas áreas no coinciden con el área seleccionada
       filteredList.forEach(item => {
         const userAreaId = item.querySelector('.area').getAttribute('data-area-id');
-        
+
         if (userAreaId !== selectedAreaId) {
           item.style.display = 'none';
         } else {
@@ -90,6 +146,7 @@
     }
   });
 </script>
+
 
 
 <% end %>
