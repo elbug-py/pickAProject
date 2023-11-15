@@ -57,8 +57,10 @@ class ProjectsController < ApplicationController
                 user:@project.user,
                 project:@project
                 )
+            flash[:notice] = "Proyecto creado con éxito! :)"
             redirect_to projects_path
         else
+            flash[:alert] = "Faltan parámetros por rellenar, intente de nuevo."
             render 'new'
         end
     end
@@ -74,9 +76,11 @@ class ProjectsController < ApplicationController
     def update
         @project = Project.find(params[:id])
         if @project.update(project_params)
+            flash[:notice] = "Proyecto editado con éxito! :)"
             redirect_to projects_path
+
         else
-            render 'edit'
+            render 'edit', status: :unprocessable_entity
         end
     end
 
@@ -122,6 +126,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status, :search_query, :teacher_id)
+        params.require(:project).permit(:title, :description, :duration, :postulations_due_date, :is_payed, :amount, :vacancies, :user_id, :project_type, :status, :search_query, :teacher_id, :start_date)
     end
 end
